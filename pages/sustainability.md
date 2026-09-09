@@ -1,3 +1,8 @@
-# Sustainability & Ethics
+---
+layout: default
+title: "Sustainability Statement // Protocols"
+---
 
-Reflect on environmental and ethical implications of AI.
+# Sustainability
+
+Reflect on the environmental and material costs of digital making.

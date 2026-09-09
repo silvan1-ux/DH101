@@ -1,3 +1,8 @@
+---
+layout: default
+title: "Markdown Field Guide // Syntax"
+---
+
 # Markdown Guide
 
 Quick reference for writing course pages and reflections.

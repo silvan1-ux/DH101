@@ -1,0 +1,25 @@
+title: "DH101 // CRITICAL MAKING CYBERDECK"
+description: "Digital Humanities 101 Spring 2026 - Critical Making in the Age of AI"
+baseurl: "/DH101"
+url: "https://silvan1-ux.github.io"
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
+
+include:
+  - pages
+  - makes
+  - reflections
+  - ai-log
+  - assets
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
