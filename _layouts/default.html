@@ -1,125 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page.title | default: site.title }}</title>
   <meta name="description" content="{{ page.description | default: site.description }}">
   
-  <!-- Cyberpunk Fonts & Stylesheet -->
-  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/cyberpunk.css">
+  <!-- Anti-Flash Theme Initializer -->
+  <script>
+    (function() {
+      const saved = localStorage.getItem('dh101_theme');
+      const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      const theme = saved || (prefersLight ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <!-- Editorial Stylesheet -->
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/editorial.css">
 </head>
 <body>
-  <!-- Ambient Cyber Particle Canvas -->
-  <canvas id="cyber-canvas"></canvas>
 
-  <!-- CRT Scanlines Overlay -->
-  <div class="scanlines"></div>
-
-  <!-- Cyberpunk HUD Header -->
-  <header class="cyber-header">
+  <!-- Site Header -->
+  <header class="site-header">
     <div class="header-inner">
-      <a href="{{ site.baseurl }}/" class="brand-wrapper">
-        <span class="brand-glitch">DH101</span>
-        <span class="brand-badge">CYBERDECK v2.6</span>
+      <a href="{{ site.baseurl }}/" class="brand-title">
+        <span>DH101</span>
+        <span class="brand-edition">EDITION 2026</span>
       </a>
 
-      <button class="mobile-toggle" aria-label="Toggle Navigation">☰</button>
+      <button class="mobile-toggle-btn" aria-label="Abrir menu" aria-expanded="false">☰</button>
 
-      <nav class="cyber-nav">
-        <a href="{{ site.baseurl }}/" class="nav-link">DECK</a>
-        <a href="{{ site.baseurl }}/#protocols" class="nav-link">PROTOCOLS</a>
-        <a href="{{ site.baseurl }}/#makes" class="nav-link">MAKES</a>
-        <a href="{{ site.baseurl }}/#reflections" class="nav-link">REFLECTIONS</a>
-        <a href="{{ site.baseurl }}/#ai-log" class="nav-link">AI LOG</a>
+      <nav class="nav-menu" aria-label="Navegação principal">
+        <a href="{{ site.baseurl }}/" class="nav-link">ÍNDICE</a>
+        <a href="{{ site.baseurl }}/#protocols" class="nav-link">PROTOCOLOS</a>
+        <a href="{{ site.baseurl }}/#makes" class="nav-link">MAKER ARCHIVE</a>
+        <a href="{{ site.baseurl }}/#reflections" class="nav-link">REFLEXÕES</a>
+        <a href="{{ site.baseurl }}/#ai-log" class="nav-link">REGISTRO IA</a>
       </nav>
 
-      <div class="hud-controls">
-        <div class="hud-pill" id="hud-clock">2026.01.01 // 00:00:00 UTC</div>
-        <button class="hud-btn active" id="toggle-audio" title="Toggle Sound FX">
-          🔊 <span class="btn-label">AUDIO</span>
-        </button>
-        <button class="hud-btn active" id="toggle-scanlines" title="Toggle CRT Scanlines">
-          📺 <span class="btn-label">CRT</span>
+      <div class="header-actions">
+        <button class="theme-toggle-btn" role="switch" aria-label="Alternar tema de cor" aria-checked="false">
+          <span class="theme-toggle-dot"></span>
+          <span class="theme-label">DARK</span>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Main Container -->
-  <main class="cyber-container">
-    <div class="breadcrumbs">
-      <a href="{{ site.baseurl }}/">TERMINAL_ROOT</a> // 
-      <span style="color: var(--neon-cyan);">{{ page.path | default: page.title }}</span>
+  <!-- Reading Layout for Jekyll Pages -->
+  <main class="site-container">
+    <div class="jekyll-reading-container">
+      <nav class="editorial-breadcrumbs" aria-label="Breadcrumb">
+        <a href="{{ site.baseurl }}/">ÍNDICE</a> &nbsp;/&nbsp; 
+        <span>{{ page.path | default: page.title }}</span>
+      </nav>
+
+      <article class="jekyll-content-card">
+        <div class="markdown-body">
+          {{ content }}
+        </div>
+
+        <div style="margin-top: 3.5rem; padding-top: 1.75rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+          <a href="{{ site.baseurl }}/" class="editorial-btn">&larr; VOLTAR AO ÍNDICE</a>
+          <span class="meta-text" style="font-size: 0.78rem; color: var(--text-subtle);">DH101 // SPRING 2026</span>
+        </div>
+      </article>
     </div>
-
-    <article class="jekyll-content-frame">
-      <div class="hero-corner tl"></div>
-      <div class="hero-corner tr"></div>
-      <div class="hero-corner bl"></div>
-      <div class="hero-corner br"></div>
-
-      <div class="markdown-body">
-        {{ content }}
-      </div>
-
-      <div style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px dashed rgba(0, 240, 255, 0.2); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-        <a href="{{ site.baseurl }}/" class="cyber-btn magenta">&larr; RETURN TO MISSION CONTROL</a>
-        <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-dim);">SYSTEM SECURE // TERMINAL ENCRYPTED</span>
-      </div>
-    </article>
   </main>
 
-  <!-- Interactive Holographic Terminal Reader Modal -->
-  <div class="cyber-modal" id="cyber-modal">
-    <div class="modal-window">
-      <div class="modal-header">
-        <div class="modal-title-wrapper">
-          <span class="modal-title" id="modal-doc-title">DOCUMENT TERMINAL</span>
-          <span class="modal-path" id="modal-doc-path">// protocol.md</span>
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="site-container">
+      <div class="footer-columns">
+        <div>
+          <div class="footer-brand-title">DH101 — CRITICAL MAKING</div>
+          <p class="footer-bio">
+            Digital Humanities 101, Spring 2026. Investigação crítica sobre fabricação digital, agência maquínica, engenharia reversa e estética computacional.
+          </p>
         </div>
-        <div class="modal-controls">
-          <button class="hud-btn" id="modal-copy-btn">COPY MD</button>
-          <a href="#" id="modal-raw-link" target="_blank" class="hud-btn">RAW</a>
-          <button class="modal-close-btn" id="modal-close-btn">[X] CLOSE</button>
+        <div>
+          <div class="footer-group-heading">PROTOCOLOS NUCLEARES</div>
+          <ul class="footer-link-list">
+            <li><a href="{{ site.baseurl }}/pages/about.html">Dossiê do Autor</a></li>
+            <li><a href="{{ site.baseurl }}/pages/how-i-use-ai.html">Política de Uso de IA</a></li>
+            <li><a href="{{ site.baseurl }}/pages/accessibility.html">Declaração de Acessibilidade</a></li>
+            <li><a href="{{ site.baseurl }}/pages/sustainability.html">Sustentabilidade Digital</a></li>
+            <li><a href="{{ site.baseurl }}/pages/markdown-guide.html">Guia Markdown</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-group-heading">METADADOS & HOSPEDAGEM</div>
+          <p class="meta-text" style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.7;">
+            REPO: DH101<br>
+            PLATAFORMA: GITHUB PAGES<br>
+            MOTOR: JEKYLL STATIC BUILD<br>
+            LICENÇA: MIT OPEN SOURCE
+          </p>
         </div>
       </div>
-      <div class="modal-body" id="modal-body-content">
-        <!-- Markdown Streamed Here -->
-      </div>
-    </div>
-  </div>
 
-  <!-- Cyber Footer -->
-  <footer class="cyber-footer">
-    <div class="footer-inner">
-      <div class="footer-col">
-        <div class="footer-heading">DH101 // CRITICAL MAKING</div>
-        <p class="footer-text">Digital Humanities 101 - Spring 2026. A speculative inquiry into fabrication, algorithmic agency, reverse engineering, and critical techno-resistance.</p>
+      <div class="footer-bottom-row">
+        <div>&copy; 2026 DH101 OPERATIVE. TODOS OS DIREITOS RESERVADOS.</div>
+        <div>PORTFÓLIO EDITORIAL & MINIMALISTA</div>
       </div>
-      <div class="footer-col">
-        <div class="footer-heading">CORE DIRECTORIES</div>
-        <ul class="footer-links">
-          <li><a href="{{ site.baseurl }}/pages/about.html">// About Me</a></li>
-          <li><a href="{{ site.baseurl }}/pages/how-i-use-ai.html">// How I Use AI</a></li>
-          <li><a href="{{ site.baseurl }}/pages/accessibility.html">// Accessibility Audit</a></li>
-          <li><a href="{{ site.baseurl }}/pages/sustainability.html">// Sustainability Statement</a></li>
-          <li><a href="{{ site.baseurl }}/pages/markdown-guide.html">// Markdown Field Guide</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <div class="footer-heading">CYBERNETIC TELEMETRY</div>
-        <p class="footer-text">SEC LEVEL: CLEARANCE 4<br>HOST: GITHUB PAGES // JEKYLL<br>STATUS: DEPLOYED & OPERATIONAL</p>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div>&copy; 2026 DH101 OPERATIVE. MIT LICENSE.</div>
-      <div>NEURAL INTERFACE: ACTIVE</div>
     </div>
   </footer>
 
-  <!-- Cyberpunk Interactive Script -->
-  <script src="{{ site.baseurl }}/assets/js/cyberpunk.js"></script>
+  <!-- Scripts -->
+  <script src="{{ site.baseurl }}/assets/js/editorial.js"></script>
 </body>
 </html>
-

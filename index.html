@@ -1,711 +1,761 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DH101 // CRITICAL MAKING CYBERDECK</title>
-  <meta name="description" content="Digital Humanities 101 - Spring 2026 Critical Making in the Age of AI Research Terminal & Portfolio">
+  <title>DH101 — Critical Making in the Age of AI | Research Archive & Portfolio</title>
+  <meta name="description" content="Digital Humanities 101 Spring 2026. Portfólio acadêmico e arquivo de pesquisa crítica sobre fabricação digital, inteligência artificial e cultura computacional.">
   
-  <!-- Cyberpunk Theme Stylesheet -->
-  <link rel="stylesheet" href="assets/css/cyberpunk.css">
+  <!-- Anti-Flash Theme Initializer -->
+  <script>
+    (function() {
+      const saved = localStorage.getItem('dh101_theme');
+      const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      const theme = saved || (prefersLight ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <!-- Editorial Stylesheet -->
+  <link rel="stylesheet" href="assets/css/editorial.css">
 </head>
 <body>
-  <!-- Ambient Cyber Particle Canvas -->
-  <canvas id="cyber-canvas"></canvas>
 
-  <!-- CRT Scanlines Overlay -->
-  <div class="scanlines"></div>
-
-  <!-- Cyberpunk HUD Header -->
-  <header class="cyber-header">
+  <!-- Site Header -->
+  <header class="site-header">
     <div class="header-inner">
-      <a href="index.html" class="brand-wrapper">
-        <span class="brand-glitch">DH101</span>
-        <span class="brand-badge">CYBERDECK v2.6</span>
+      <a href="index.html" class="brand-title">
+        <span>DH101</span>
+        <span class="brand-edition">EDITION 2026</span>
       </a>
 
-      <button class="mobile-toggle" aria-label="Toggle Navigation">☰</button>
+      <button class="mobile-toggle-btn" aria-label="Abrir menu de navegação" aria-expanded="false">☰</button>
 
-      <nav class="cyber-nav">
-        <a href="#deck" class="nav-link active">DECK</a>
-        <a href="#protocols" class="nav-link">PROTOCOLS</a>
-        <a href="#makes" class="nav-link">MAKES</a>
-        <a href="#reflections" class="nav-link">REFLECTIONS</a>
-        <a href="#ai-log" class="nav-link">AI LOG</a>
+      <nav class="nav-menu" aria-label="Navegação do site">
+        <a href="#hero" class="nav-link active">ÍNDICE</a>
+        <a href="#protocols" class="nav-link">PROTOCOLOS</a>
+        <a href="#makes" class="nav-link">MAKER ARCHIVE</a>
+        <a href="#reflections" class="nav-link">REFLEXÕES</a>
+        <a href="#ai-log" class="nav-link">REGISTRO IA</a>
       </nav>
 
-      <div class="hud-controls">
-        <div class="hud-pill" id="hud-clock">2026.01.01 // 00:00:00 UTC</div>
-        <button class="hud-btn active" id="toggle-audio" title="Toggle Sound FX">
-          🔊 <span class="btn-label">AUDIO</span>
-        </button>
-        <button class="hud-btn active" id="toggle-scanlines" title="Toggle CRT Scanlines">
-          📺 <span class="btn-label">CRT</span>
+      <div class="header-actions">
+        <button class="theme-toggle-btn" role="switch" aria-label="Alternar tema de cor" aria-checked="false">
+          <span class="theme-toggle-dot"></span>
+          <span class="theme-label">DARK</span>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Main Cyberdeck Container -->
-  <main class="cyber-container" id="deck">
+  <!-- Main Content Container -->
+  <main class="site-container">
 
-    <!-- Hero Mission Control -->
-    <section class="cyber-hero">
-      <div class="hero-corner tl"></div>
-      <div class="hero-corner tr"></div>
-      <div class="hero-corner bl"></div>
-      <div class="hero-corner br"></div>
-
-      <div class="hero-subtitle">
-        <span class="pulse-dot"></span>
-        <span>NODE: DH101 // OPERATIVE INTERFACE ACTIVE</span>
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="hero-meta-bar">
+        <div class="hero-meta-tag">
+          <span class="live-dot"></span>
+          <span>ARQUIVO ACADÊMICO // DH101</span>
+        </div>
+        <div>SEMESTRE: SPRING 2026</div>
+        <div>DIGITAL HUMANITIES & CRITICAL MAKING</div>
       </div>
 
       <h1 class="hero-title">
-        CRITICAL MAKING <span class="accent">//</span> IN THE AGE OF <span class="accent-pink">AI</span>
+        CRITICAL MAKING <br>
+        <span class="title-italic">in the age of</span> <br>
+        ARTIFICIAL INTELLIGENCE
       </h1>
 
-      <div class="hero-dispatch">
-        <p>
-          [SYSTEM DISPATCH 2026]: Speculative inquiries into digital fabrication, algorithmic agency, reverse engineering, and techno-cultural resistance. Documenting weekly physical/computational artifacts, neural reflections, and ethical human-machine co-creation across the semester matrix.
-          <span class="typed-cursor">_</span>
-        </p>
-      </div>
+      <div class="hero-columns">
+        <div>
+          <p class="hero-lead">
+            Investigação crítica e especulativa sobre as fronteiras entre a matéria física e o código generativo. Um arquivo semestral contendo artefatos de engenharia reversa, experimentos de fabricação, ensaios filosóficos e uma contabilidade ética da co-criação humano-máquina.
+          </p>
 
-      <!-- Quick Action Buttons -->
-      <div class="cyber-btn-group">
-        <a href="#makes" class="cyber-btn primary">
-          <span>[+] BROWSE MAKER DISPATCHES</span>
-        </a>
-        <a href="#reflections" class="cyber-btn magenta">
-          <span>[*] NEURAL REFLECTIONS</span>
-        </a>
-        <button class="cyber-btn" onclick="openCyberDoc('pages/about.md', 'OPERATIVE DOSSIER // ABOUT ME')">
-          <span>[?] OPERATIVE DOSSIER</span>
-        </button>
-        <button class="cyber-btn" onclick="openCyberDoc('pages/how-i-use-ai.md', 'AI INTERACTION PROTOCOL')">
-          <span>[!] AI USE PROTOCOL</span>
-        </button>
-      </div>
+          <div class="hero-cta-row">
+            <a href="#makes" class="editorial-btn primary">Explorar Projetos Maker</a>
+            <a href="#reflections" class="editorial-btn">Reflexões Teóricas</a>
+            <button class="editorial-btn" onclick="openEditorialDoc('pages/about.md', 'DOSSIÊ DO AUTOR')">Dossiê do Autor</button>
+            <button class="editorial-btn" onclick="openEditorialDoc('pages/how-i-use-ai.md', 'POLÍTICA DE USO DE IA')">Política de IA</button>
+          </div>
+        </div>
 
-      <!-- Diagnostics Telemetry Bar -->
-      <div class="diag-bar">
-        <div class="diag-item">
-          <div class="diag-label">Maker Dispatches</div>
-          <div class="diag-value">12 PROJECTS</div>
-        </div>
-        <div class="diag-item">
-          <div class="diag-label">Neural Reflections</div>
-          <div class="diag-value">13 LOGS</div>
-        </div>
-        <div class="diag-item">
-          <div class="diag-label">Core Protocols</div>
-          <div class="diag-value">05 MODULES</div>
-        </div>
-        <div class="diag-item">
-          <div class="diag-label">Security Clearance</div>
-          <div class="diag-value" style="color: var(--neon-green);">UNRESTRICTED</div>
+        <div class="hero-stats-grid">
+          <div class="stat-item">
+            <span class="stat-number">12</span>
+            <span class="stat-label">Projetos Maker</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">13</span>
+            <span class="stat-label">Reflexões Críticas</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">05</span>
+            <span class="stat-label">Diretrizes Nucleares</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">01</span>
+            <span class="stat-label">Ledger de IA</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Global Filter & Search Bar -->
-    <section class="filter-bar">
-      <div class="search-box-wrapper">
-        <span class="search-icon">&gt;</span>
-        <input type="text" id="deck-search" class="search-input" placeholder="SEARCH MATRIX (e.g. reverse engineering, remix, ecology, selfie)..." aria-label="Search dispatches and protocols">
+    <!-- Filter & Search Module -->
+    <section class="filter-module" aria-label="Filtros de conteúdo">
+      <div class="filter-segments">
+        <button class="filter-pill active" data-filter="all">Todos os Itens</button>
+        <button class="filter-pill" data-filter="protocols">Protocolos</button>
+        <button class="filter-pill" data-filter="makes">Projetos Maker</button>
+        <button class="filter-pill" data-filter="reflections">Reflexões</button>
+        <button class="filter-pill" data-filter="ai-log">Registro IA</button>
       </div>
 
-      <div class="filter-pills">
-        <button class="filter-btn active" data-filter="all">ALL NODES</button>
-        <button class="filter-btn" data-filter="protocols">PROTOCOLS</button>
-        <button class="filter-btn" data-filter="makes">MAKER LOGS</button>
-        <button class="filter-btn" data-filter="reflections">REFLECTIONS</button>
-        <button class="filter-btn" data-filter="ai-log">AI SYNTHESIS</button>
+      <div class="search-field-wrapper">
+        <span class="search-icon-symbol" aria-hidden="true">⌕</span>
+        <input type="text" id="editorial-search" class="search-field" placeholder="Buscar por tema, semana ou conceito..." aria-label="Buscar no acervo acadêmico">
       </div>
     </section>
 
     <!-- SECTION 1: CORE PROTOCOLS -->
-    <section id="protocols" style="margin-bottom: 3.5rem;">
-      <div class="section-header">
-        <h2 class="section-title">
-          <span style="color: var(--neon-cyan);">&gt;</span> CORE PROTOCOLS
-        </h2>
-        <span class="section-tag">// FOUNDATIONAL SYSTEM DIRECTIVES</span>
+    <section class="content-section" id="protocols">
+      <div class="section-lead-row">
+        <h2 class="section-heading">01 / Protocolos Nucleares</h2>
+        <span class="section-counter">05 DIRETRIZES FUNDAMENTAIS</span>
       </div>
 
-      <div class="cyber-grid">
+      <div class="editorial-grid">
         <!-- About Me -->
-        <div class="cyber-card" data-category="protocols">
-          <div class="card-meta">
-            <span class="card-num">[PR.01]</span>
-            <span class="card-status core">DOSSIER</span>
+        <article class="editorial-card" data-category="protocols">
+          <div>
+            <div class="card-top">
+              <span class="card-index">01.1 // PERFIL</span>
+              <span class="tag-badge">AUTOR</span>
+            </div>
+            <h3 class="card-title">Dossiê do Autor</h3>
+            <p class="card-summary">Trajetória acadêmica, interesses de pesquisa em Humanidades Digitais e motivações de estudo neste semestre.</p>
           </div>
-          <h3 class="card-title">Operative Dossier</h3>
-          <p class="card-desc">Personal profile, background, academic trajectory, and critical research interests in Digital Humanities.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('pages/about.md', 'OPERATIVE DOSSIER // ABOUT ME')">READ IN TERMINAL</button>
-            <a href="pages/about.md" class="card-btn secondary" target="_blank">RAW</a>
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('pages/about.md', 'DOSSIÊ DO AUTOR')">Ler no Leitor</button>
+            <a href="pages/about.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-        </div>
+        </article>
 
         <!-- How I Use AI -->
-        <div class="cyber-card" data-category="protocols">
-          <div class="card-meta">
-            <span class="card-num">[PR.02]</span>
-            <span class="card-status online">POLICY</span>
+        <article class="editorial-card" data-category="protocols">
+          <div>
+            <div class="card-top">
+              <span class="card-index">01.2 // ÉTICA</span>
+              <span class="tag-badge">METODOLOGIA</span>
+            </div>
+            <h3 class="card-title">Política de Uso de IA</h3>
+            <p class="card-summary">Princípios éticos, limites metodológicos e critérios de atribuição adotados na colaboração com modelos generativos.</p>
           </div>
-          <h3 class="card-title">How I Use AI</h3>
-          <p class="card-desc">Methodological framework, boundaries, ethical principles, and disclosure standards for human-machine co-creation.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('pages/how-i-use-ai.md', 'HOW I USE AI // PROTOCOL')">READ IN TERMINAL</button>
-            <a href="pages/how-i-use-ai.md" class="card-btn secondary" target="_blank">RAW</a>
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('pages/how-i-use-ai.md', 'POLÍTICA DE USO DE IA')">Ler no Leitor</button>
+            <a href="pages/how-i-use-ai.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-        </div>
+        </article>
 
         <!-- Accessibility -->
-        <div class="cyber-card" data-category="protocols">
-          <div class="card-meta">
-            <span class="card-num">[PR.03]</span>
-            <span class="card-status logged">AUDIT</span>
+        <article class="editorial-card" data-category="protocols">
+          <div>
+            <div class="card-top">
+              <span class="card-index">01.3 // INCLUSÃO</span>
+              <span class="tag-badge">ACESSIBILIDADE</span>
+            </div>
+            <h3 class="card-title">Declaração de Acessibilidade</h3>
+            <p class="card-summary">Diretrizes de design universal, contraste visual, semântica inclusiva e suporte a tecnologias assistivas.</p>
           </div>
-          <h3 class="card-title">Accessibility Statement</h3>
-          <p class="card-desc">Universal design considerations, screen reader readiness, semantic hierarchy, color contrast, and inclusive computing.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('pages/accessibility.md', 'ACCESSIBILITY AUDIT')">READ IN TERMINAL</button>
-            <a href="pages/accessibility.md" class="card-btn secondary" target="_blank">RAW</a>
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('pages/accessibility.md', 'ACESSIBILIDADE DIGITAL')">Ler no Leitor</button>
+            <a href="pages/accessibility.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-        </div>
+        </article>
 
         <!-- Sustainability -->
-        <div class="cyber-card" data-category="protocols">
-          <div class="card-meta">
-            <span class="card-num">[PR.04]</span>
-            <span class="card-status standby">ECOLOGY</span>
+        <article class="editorial-card" data-category="protocols">
+          <div>
+            <div class="card-top">
+              <span class="card-index">01.4 // ECOLOGIA</span>
+              <span class="tag-badge">SUSTENTABILIDADE</span>
+            </div>
+            <h3 class="card-title">Sustentabilidade Digital</h3>
+            <p class="card-summary">Análise crítica sobre a pegada de carbono, gastos energéticos de servidores e custos ecológicos da inteligência artificial.</p>
           </div>
-          <h3 class="card-title">Sustainability</h3>
-          <p class="card-desc">Ecological footprint analysis of digital infrastructure, carbon costs of compute, and minimalist hosting paradigms.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('pages/sustainability.md', 'SUSTAINABILITY MANIFESTO')">READ IN TERMINAL</button>
-            <a href="pages/sustainability.md" class="card-btn secondary" target="_blank">RAW</a>
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('pages/sustainability.md', 'SUSTENTABILIDADE')">Ler no Leitor</button>
+            <a href="pages/sustainability.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-        </div>
+        </article>
 
         <!-- Markdown Field Guide -->
-        <div class="cyber-card" data-category="protocols">
-          <div class="card-meta">
-            <span class="card-num">[PR.05]</span>
-            <span class="card-status core">SYNTAX</span>
+        <article class="editorial-card" data-category="protocols">
+          <div>
+            <div class="card-top">
+              <span class="card-index">01.5 // GUIA</span>
+              <span class="tag-badge">DOCUMENTAÇÃO</span>
+            </div>
+            <h3 class="card-title">Guia de Formatação Markdown</h3>
+            <p class="card-summary">Manual de referência de boas práticas editoriais, links relativos, formatação de imagens e estruturação de ensaios.</p>
           </div>
-          <h3 class="card-title">Markdown Field Guide</h3>
-          <p class="card-desc">Technical manual on structured typography, front matter, relative asset linkage, and weekly reflection formatting.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('pages/markdown-guide.md', 'MARKDOWN FIELD GUIDE')">READ IN TERMINAL</button>
-            <a href="pages/markdown-guide.md" class="card-btn secondary" target="_blank">RAW</a>
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('pages/markdown-guide.md', 'GUIA MARKDOWN')">Ler no Leitor</button>
+            <a href="pages/markdown-guide.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-        </div>
+        </article>
       </div>
     </section>
 
     <!-- SECTION 2: MAKER DISPATCHES -->
-    <section id="makes" style="margin-bottom: 3.5rem;">
-      <div class="section-header">
-        <h2 class="section-title">
-          <span style="color: var(--neon-cyan);">&gt;</span> MAKER DISPATCHES // FABRICATION
-        </h2>
-        <span class="section-tag">// ARTIFACTS & EXPERIMENTS</span>
+    <section class="content-section" id="makes">
+      <div class="section-lead-row">
+        <h2 class="section-heading">02 / Maker Dispatches</h2>
+        <span class="section-counter">12 PROJETOS DE FABRICAÇÃO</span>
       </div>
 
-      <div class="cyber-grid">
+      <div class="editorial-grid">
         <!-- Week 01 -->
-        <div class="cyber-card" data-category="makes">
-          <div class="card-meta">
-            <span class="card-num">[MK.01]</span>
-            <span class="card-status online">DEPLOYED</span>
+        <article class="editorial-card" data-category="makes">
+          <div>
+            <div class="card-top">
+              <span class="card-index">SEM. 01 / 13</span>
+              <span class="tag-badge">ENGENHARIA REVERSA</span>
+            </div>
+            <h3 class="card-title">Semana 1: Reverse Engineering</h3>
+            <p class="card-summary">Desmontagem e análise crítica de sistemas técnicos, revelando lógicas mecânicas e camadas invisíveis de funcionamento.</p>
           </div>
-          <h3 class="card-title">Week 1: Reverse Engineering</h3>
-          <p class="card-desc">Deconstructing technical systems to inspect hidden architectures, mechanical logic, and physical-to-digital translations.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('makes/week01.md', 'WEEK 01 // REVERSE ENGINEERING')">READ IN TERMINAL</button>
-            <a href="makes/week01.md" class="card-btn secondary" target="_blank">RAW</a>
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('makes/week01.md', 'SEMANA 1 // REVERSE ENGINEERING')">Ler no Leitor</button>
+            <a href="makes/week01.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-        </div>
+        </article>
 
         <!-- Week 03 -->
-        <div class="cyber-card" data-category="makes">
-          <div class="card-meta">
-            <span class="card-num">[MK.03]</span>
-            <span class="card-status standby">STANDBY</span>
+        <article class="editorial-card" data-category="makes">
+          <div>
+            <div class="card-top">
+              <span class="card-index">SEM. 03 / 13</span>
+              <span class="tag-badge">IDENTIDADE</span>
+            </div>
+            <h3 class="card-title">Semana 3: Selfie & Identity</h3>
+            <p class="card-summary">Retratos algorítmicos, mediações biométricas e a construção da subjetividade mediada por sistemas de visão computacional.</p>
           </div>
-          <h3 class="card-title">Week 3: Selfie & Identity</h3>
-          <p class="card-desc">Algorithmic portraiture, biometric representations, facial capture, and digital subjectivity.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('makes/week03.md', 'WEEK 03 // SELFIE & IDENTITY')">READ IN TERMINAL</button>
-            <a href="makes/week03.md" class="card-btn secondary" target="_blank">RAW</a>
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('makes/week03.md', 'SEMANA 3 // SELFIE & IDENTITY')">Ler no Leitor</button>
+            <a href="makes/week03.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-        </div>
+        </article>
 
         <!-- Week 04 -->
-        <div class="cyber-card" data-category="makes">
-          <div class="card-meta">
-            <span class="card-num">[MK.04]</span>
-            <span class="card-status standby">STANDBY</span>
+        <article class="editorial-card" data-category="makes">
+          <div>
+            <div class="card-top">
+              <span class="card-index">SEM. 04 / 13</span>
+              <span class="tag-badge">NARRATIVA</span>
+            </div>
+            <h3 class="card-title">Semana 4: Comic & Storytelling</h3>
+            <p class="card-summary">Narrativas visuais sequenciais, ritmo de quadrinhos e storytelling multilinear na era da síntese generativa.</p>
           </div>
-          <h3 class="card-title">Week 4: Comic & Storytelling</h3>
-          <p class="card-desc">Visual sequential narratives, generative panel pacing, semiotics, and multilinear storytelling.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('makes/week04.md', 'WEEK 04 // COMIC & STORYTELLING')">READ IN TERMINAL</button>
-            <a href="makes/week04.md" class="card-btn secondary" target="_blank">RAW</a>
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('makes/week04.md', 'SEMANA 4 // COMIC & STORYTELLING')">Ler no Leitor</button>
+            <a href="makes/week04.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-        </div>
+        </article>
 
         <!-- Week 05 -->
-        <div class="cyber-card" data-category="makes">
-          <div class="card-meta">
-            <span class="card-num">[MK.05]</span>
-            <span class="card-status standby">STANDBY</span>
+        <article class="editorial-card" data-category="makes">
+          <div>
+            <div class="card-top">
+              <span class="card-index">SEM. 05 / 13</span>
+              <span class="tag-badge">REMIX</span>
+            </div>
+            <h3 class="card-title">Semana 5: GIF & Remix Culture</h3>
+            <p class="card-summary">A estética dos micro-loops, colagem contemporânea e apropriação cultural na circulação acelerada de imagens em rede.</p>
           </div>
-          <h3 class="card-title">Week 5: GIF & Remix Culture</h3>
-          <p class="card-desc">Micro-looping aesthetics, kinetic memory, cultural appropriation, and transformative digital collage.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('makes/week05.md', 'WEEK 05 // GIF & REMIX CULTURE')">READ IN TERMINAL</button>
-            <a href="makes/week05.md" class="card-btn secondary" target="_blank">RAW</a>
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('makes/week05.md', 'SEMANA 5 // GIF & REMIX CULTURE')">Ler no Leitor</button>
+            <a href="makes/week05.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-        </div>
+        </article>
 
         <!-- Week 06 -->
-        <div class="cyber-card" data-category="makes">
-          <div class="card-meta">
-            <span class="card-num">[MK.06]</span>
-            <span class="card-status standby">STANDBY</span>
+        <article class="editorial-card" data-category="makes">
+          <div>
+            <div class="card-top">
+              <span class="card-index">SEM. 06 / 13</span>
+              <span class="tag-badge">LEITURA DISTANTE</span>
+            </div>
+            <h3 class="card-title">Semana 6: Text & Distant Reading</h3>
+            <p class="card-summary">Linguística de corpus, mineração quantitativa de n-grams e leitura distante aplicada a grandes arquivos literários.</p>
           </div>
-          <h3 class="card-title">Week 6: Text & Distant Reading</h3>
-          <p class="card-desc">Corpus linguistics, statistical textual analysis, n-gram mining, and algorithmic literary critique.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('makes/week06.md', 'WEEK 06 // TEXT & DISTANT READING')">READ IN TERMINAL</button>
-            <a href="makes/week06.md" class="card-btn secondary" target="_blank">RAW</a>
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('makes/week06.md', 'SEMANA 6 // TEXT & DISTANT READING')">Ler no Leitor</button>
+            <a href="makes/week06.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-        </div>
+        </article>
 
         <!-- Week 07 -->
-        <div class="cyber-card" data-category="makes">
-          <div class="card-meta">
-            <span class="card-num">[MK.07]</span>
-            <span class="card-status standby">STANDBY</span>
+        <article class="editorial-card" data-category="makes">
+          <div>
+            <div class="card-top">
+              <span class="card-index">SEM. 07 / 13</span>
+              <span class="tag-badge">CARTOGRAFIA</span>
+            </div>
+            <h3 class="card-title">Semana 7: Mapping AI Worlds</h3>
+            <p class="card-summary">Mapeamento espacial das infraestruturas de dados, cabos submarinos, data centers e geografias de poder computacional.</p>
           </div>
-          <h3 class="card-title">Week 7: Mapping AI Worlds</h3>
-          <p class="card-desc">Spatial representations of machine topologies, geopolitical compute clusters, and algorithmic cartography.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('makes/week07.md', 'WEEK 07 // MAPPING AI WORLDS')">READ IN TERMINAL</button>
-            <a href="makes/week07.md" class="card-btn secondary" target="_blank">RAW</a>
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('makes/week07.md', 'SEMANA 7 // MAPPING AI WORLDS')">Ler no Leitor</button>
+            <a href="makes/week07.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-        </div>
+        </article>
 
         <!-- Week 08 -->
-        <div class="cyber-card" data-category="makes">
-          <div class="card-meta">
-            <span class="card-num">[MK.08]</span>
-            <span class="card-status standby">STANDBY</span>
+        <article class="editorial-card" data-category="makes">
+          <div>
+            <div class="card-top">
+              <span class="card-index">SEM. 08 / 13</span>
+              <span class="tag-badge">REDES</span>
+            </div>
+            <h3 class="card-title">Semana 8: Networks of Knowledge</h3>
+            <p class="card-summary">Topologia de redes, análise de grafos relacionais e distribuição de autoridade em sistemas de informação hiperconectados.</p>
           </div>
-          <h3 class="card-title">Week 8: Networks of Knowledge</h3>
-          <p class="card-desc">Graph visualizations, power nodes, citation topology, and systemic information distribution.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('makes/week08.md', 'WEEK 08 // NETWORKS OF KNOWLEDGE')">READ IN TERMINAL</button>
-            <a href="makes/week08.md" class="card-btn secondary" target="_blank">RAW</a>
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('makes/week08.md', 'SEMANA 8 // NETWORKS OF KNOWLEDGE')">Ler no Leitor</button>
+            <a href="makes/week08.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-        </div>
+        </article>
 
         <!-- Week 09 -->
-        <div class="cyber-card" data-category="makes">
-          <div class="card-meta">
-            <span class="card-num">[MK.09]</span>
-            <span class="card-status standby">STANDBY</span>
+        <article class="editorial-card" data-category="makes">
+          <div>
+            <div class="card-top">
+              <span class="card-index">SEM. 09 / 13</span>
+              <span class="tag-badge">AUTOMAÇÃO</span>
+            </div>
+            <h3 class="card-title">Semana 9: Bots & Generators</h3>
+            <p class="card-summary">Scripts autônomos, agentes conversacionais e a produção procedural de texto em plataformas de microblogging e chat.</p>
           </div>
-          <h3 class="card-title">Week 9: Bots & Generators</h3>
-          <p class="card-desc">Autonomous generative scripts, conversational agents, recursive state machines, and algorithmic dialogue.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('makes/week09.md', 'WEEK 09 // BOTS & GENERATORS')">READ IN TERMINAL</button>
-            <a href="makes/week09.md" class="card-btn secondary" target="_blank">RAW</a>
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('makes/week09.md', 'SEMANA 9 // BOTS & GENERATORS')">Ler no Leitor</button>
+            <a href="makes/week09.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-        </div>
+        </article>
 
         <!-- Week 10 -->
-        <div class="cyber-card" data-category="makes">
-          <div class="card-meta">
-            <span class="card-num">[MK.10]</span>
-            <span class="card-status standby">STANDBY</span>
+        <article class="editorial-card" data-category="makes">
+          <div>
+            <div class="card-top">
+              <span class="card-index">SEM. 10 / 13</span>
+              <span class="tag-badge">LUDOLOGIA</span>
+            </div>
+            <h3 class="card-title">Semana 10: Games & Play</h3>
+            <p class="card-summary">Sistemas lúdicos, retórica procedural e o ato de jogar criticamente contra as regras e premissas do design de software.</p>
           </div>
-          <h3 class="card-title">Week 10: Games & Play</h3>
-          <p class="card-desc">Ludic systems, rule-bound cybernetic feedback loops, procedural generation, and critical play mechanics.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('makes/week10.md', 'WEEK 10 // GAMES & PLAY')">READ IN TERMINAL</button>
-            <a href="makes/week10.md" class="card-btn secondary" target="_blank">RAW</a>
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('makes/week10.md', 'SEMANA 10 // GAMES & PLAY')">Ler no Leitor</button>
+            <a href="makes/week10.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-        </div>
+        </article>
 
         <!-- Week 11 -->
-        <div class="cyber-card" data-category="makes">
-          <div class="card-meta">
-            <span class="card-num">[MK.11]</span>
-            <span class="card-status standby">STANDBY</span>
+        <article class="editorial-card" data-category="makes">
+          <div>
+            <div class="card-top">
+              <span class="card-index">SEM. 11 / 13</span>
+              <span class="tag-badge">TRABALHO</span>
+            </div>
+            <h3 class="card-title">Semana 11: AI & Labor</h3>
+            <p class="card-summary">O trabalho invisível de anotação de dados, microworkers de RLHF e as tensões econômicas na automação do conhecimento.</p>
           </div>
-          <h3 class="card-title">Week 11: AI & Labor</h3>
-          <p class="card-desc">Ghost work, RLHF micro-tasks, platform capitalism, dataset extraction, and worker resistance.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('makes/week11.md', 'WEEK 11 // AI & LABOR')">READ IN TERMINAL</button>
-            <a href="makes/week11.md" class="card-btn secondary" target="_blank">RAW</a>
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('makes/week11.md', 'SEMANA 11 // AI & LABOR')">Ler no Leitor</button>
+            <a href="makes/week11.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-        </div>
+        </article>
 
         <!-- Week 12 -->
-        <div class="cyber-card" data-category="makes">
-          <div class="card-meta">
-            <span class="card-num">[MK.12]</span>
-            <span class="card-status standby">STANDBY</span>
+        <article class="editorial-card" data-category="makes">
+          <div>
+            <div class="card-top">
+              <span class="card-index">SEM. 12 / 13</span>
+              <span class="tag-badge">ECOLOGIA</span>
+            </div>
+            <h3 class="card-title">Semana 12: AI & Ecology</h3>
+            <p class="card-summary">Consumo hídrico para resfriamento de data centers, emissões de CO₂ no treinamento de modelos e a materialidade da IA.</p>
           </div>
-          <h3 class="card-title">Week 12: AI & Ecology</h3>
-          <p class="card-desc">Data center thermal loads, rare-earth mineral extraction, cooling water consumption, and green computing.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('makes/week12.md', 'WEEK 12 // AI & ECOLOGY')">READ IN TERMINAL</button>
-            <a href="makes/week12.md" class="card-btn secondary" target="_blank">RAW</a>
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('makes/week12.md', 'SEMANA 12 // AI & ECOLOGY')">Ler no Leitor</button>
+            <a href="makes/week12.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-        </div>
+        </article>
 
         <!-- Week 13 -->
-        <div class="cyber-card" data-category="makes">
-          <div class="card-meta">
-            <span class="card-num">[MK.13]</span>
-            <span class="card-status standby">STANDBY</span>
+        <article class="editorial-card" data-category="makes">
+          <div>
+            <div class="card-top">
+              <span class="card-index">SEM. 13 / 13</span>
+              <span class="tag-badge">FUTUROS</span>
+            </div>
+            <h3 class="card-title">Semana 13: Futures of AI & Humanity</h3>
+            <p class="card-summary">Design especulativo, horizontes pós-humanos e a redefinição do artesanato humano diante de máquinas auto-aprendizes.</p>
           </div>
-          <h3 class="card-title">Week 13: Futures of AI & Humanity</h3>
-          <p class="card-desc">Speculative post-human design, cybernetic governance, cyborg identity, and the horizon of making.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('makes/week13.md', 'WEEK 13 // FUTURES OF AI')">READ IN TERMINAL</button>
-            <a href="makes/week13.md" class="card-btn secondary" target="_blank">RAW</a>
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('makes/week13.md', 'SEMANA 13 // FUTURES OF AI')">Ler no Leitor</button>
+            <a href="makes/week13.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-        </div>
+        </article>
       </div>
     </section>
 
     <!-- SECTION 3: NEURAL REFLECTIONS -->
-    <section id="reflections" style="margin-bottom: 3.5rem;">
-      <div class="section-header">
-        <h2 class="section-title">
-          <span style="color: var(--neon-magenta);">&gt;</span> NEURAL REFLECTIONS
-        </h2>
-        <span class="section-tag" style="color: var(--neon-magenta); border-color: var(--neon-magenta-dim);">// CRITICAL DISPATCHES & INQUIRY</span>
+    <section class="content-section" id="reflections">
+      <div class="section-lead-row">
+        <h2 class="section-heading">03 / Reflexões Críticas</h2>
+        <span class="section-counter">13 ENSAIOS TEMÁTICOS</span>
       </div>
 
-      <div class="cyber-grid">
-        <!-- Week 1 Reflection -->
-        <div class="cyber-card magenta" data-category="reflections">
-          <div class="card-meta">
-            <span class="card-num" style="color: var(--neon-magenta);">[RF.01]</span>
-            <span class="card-status core">LOGGED</span>
+      <div class="editorial-grid">
+        <!-- Reflection 1 -->
+        <article class="editorial-card" data-category="reflections">
+          <div>
+            <div class="card-top">
+              <span class="card-index">REF. 01 / 13</span>
+              <span class="tag-badge">ENSAIO</span>
+            </div>
+            <h3 class="card-title">Reflexão 01</h3>
+            <div class="reflection-prompt-quote">
+              "What counts as 'making' in the age of AI? What might be gained/lost when machines participate in making?"
+            </div>
+            <p class="card-summary">Análise ontológica sobre o significado do fazer artesanal versus a montagem algorítmica.</p>
           </div>
-          <h3 class="card-title">Reflection 01</h3>
-          <div class="reflection-prompt-box">
-            "What counts as 'making' in the age of AI? What might be gained/lost when machines participate in making?"
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('reflections/week01.md', 'REFLEXÃO 01 // CRITICAL MAKING')">Ler Reflexão</button>
+            <a href="reflections/week01.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-          <p class="card-desc">Investigating ontological boundaries between artisanal human craft and machine synthesis.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('reflections/week01.md', 'REFLECTION 01 // CRITICAL MAKING')">READ IN TERMINAL</button>
-            <a href="reflections/week01.md" class="card-btn secondary" target="_blank">RAW</a>
-          </div>
-        </div>
+        </article>
 
-        <!-- Week 2 Reflection -->
-        <div class="cyber-card magenta" data-category="reflections">
-          <div class="card-meta">
-            <span class="card-num" style="color: var(--neon-magenta);">[RF.02]</span>
-            <span class="card-status core">LOGGED</span>
+        <!-- Reflection 2 -->
+        <article class="editorial-card" data-category="reflections">
+          <div>
+            <div class="card-top">
+              <span class="card-index">REF. 02 / 13</span>
+              <span class="tag-badge">ENSAIO</span>
+            </div>
+            <h3 class="card-title">Reflexão 02</h3>
+            <div class="reflection-prompt-quote">
+              "Can AI help us define what it means to be human, or does it reduce us to patterns?"
+            </div>
+            <p class="card-summary">Reconhecimento de padrões, espelhos matemáticos e a especificidade da consciência humana.</p>
           </div>
-          <h3 class="card-title">Reflection 02</h3>
-          <div class="reflection-prompt-box">
-            "Can AI help us define what it means to be human, or does it reduce us to patterns?"
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('reflections/week02.md', 'REFLEXÃO 02 // DEFINING HUMAN')">Ler Reflexão</button>
+            <a href="reflections/week02.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-          <p class="card-desc">Exploring pattern recognition, mirror tests of artificial intelligence, and existential subjectivity.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('reflections/week02.md', 'REFLECTION 02 // DEFINING HUMAN')">READ IN TERMINAL</button>
-            <a href="reflections/week02.md" class="card-btn secondary" target="_blank">RAW</a>
-          </div>
-        </div>
+        </article>
 
-        <!-- Week 3 Reflection -->
-        <div class="cyber-card magenta" data-category="reflections">
-          <div class="card-meta">
-            <span class="card-num" style="color: var(--neon-magenta);">[RF.03]</span>
-            <span class="card-status standby">STANDBY</span>
+        <!-- Reflection 3 -->
+        <article class="editorial-card" data-category="reflections">
+          <div>
+            <div class="card-top">
+              <span class="card-index">REF. 03 / 13</span>
+              <span class="tag-badge">ENSAIO</span>
+            </div>
+            <h3 class="card-title">Reflexão 03</h3>
+            <div class="reflection-prompt-quote">
+              "What does 'authenticity' mean when identity is co-constructed with AI?"
+            </div>
+            <p class="card-summary">Simulação do eu, personas geradas por filtros e a autenticidade na cultura das redes sociais.</p>
           </div>
-          <h3 class="card-title">Reflection 03</h3>
-          <div class="reflection-prompt-box">
-            "What does 'authenticity' mean when identity is co-constructed with AI?"
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('reflections/week03.md', 'REFLEXÃO 03 // AUTHENTICITY')">Ler Reflexão</button>
+            <a href="reflections/week03.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-          <p class="card-desc">The simulation of the self in social feeds, virtual avatars, and synthetic representations.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('reflections/week03.md', 'REFLECTION 03 // AUTHENTICITY')">READ IN TERMINAL</button>
-            <a href="reflections/week03.md" class="card-btn secondary" target="_blank">RAW</a>
-          </div>
-        </div>
+        </article>
 
-        <!-- Week 4 Reflection -->
-        <div class="cyber-card magenta" data-category="reflections">
-          <div class="card-meta">
-            <span class="card-num" style="color: var(--neon-magenta);">[RF.04]</span>
-            <span class="card-status standby">STANDBY</span>
+        <!-- Reflection 4 -->
+        <article class="editorial-card" data-category="reflections">
+          <div>
+            <div class="card-top">
+              <span class="card-index">REF. 04 / 13</span>
+              <span class="tag-badge">ENSAIO</span>
+            </div>
+            <h3 class="card-title">Reflexão 04</h3>
+            <div class="reflection-prompt-quote">
+              "Is AI a collaborator, tool, or plagiarist in storytelling?"
+            </div>
+            <p class="card-summary">Autoria, intertextualidade de modelos de linguagem e apropriação na escrita ficcional contemporânea.</p>
           </div>
-          <h3 class="card-title">Reflection 04</h3>
-          <div class="reflection-prompt-box">
-            "Is AI a collaborator, tool, or plagiarist in storytelling?"
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('reflections/week04.md', 'REFLEXÃO 04 // STORYTELLING')">Ler Reflexão</button>
+            <a href="reflections/week04.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-          <p class="card-desc">Authorship tensions, mythologies of narrative generation, and narrative agency.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('reflections/week04.md', 'REFLECTION 04 // COLLABORATOR OR PLAGIARIST')">READ IN TERMINAL</button>
-            <a href="reflections/week04.md" class="card-btn secondary" target="_blank">RAW</a>
-          </div>
-        </div>
+        </article>
 
-        <!-- Week 5 Reflection -->
-        <div class="cyber-card magenta" data-category="reflections">
-          <div class="card-meta">
-            <span class="card-num" style="color: var(--neon-magenta);">[RF.05]</span>
-            <span class="card-status standby">STANDBY</span>
+        <!-- Reflection 5 -->
+        <article class="editorial-card" data-category="reflections">
+          <div>
+            <div class="card-top">
+              <span class="card-index">REF. 05 / 13</span>
+              <span class="tag-badge">ENSAIO</span>
+            </div>
+            <h3 class="card-title">Reflexão 05</h3>
+            <div class="reflection-prompt-quote">
+              "How does AI alter authorship and remix culture? Who owns AI-made art?"
+            </div>
+            <p class="card-summary">Direitos autorais, bancos de treino raspados na web e o estatuto de propriedade em arte sintética.</p>
           </div>
-          <h3 class="card-title">Reflection 05</h3>
-          <div class="reflection-prompt-box">
-            "How does AI alter authorship and remix culture? Who owns AI-made art?"
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('reflections/week05.md', 'REFLEXÃO 05 // REMIX & OWNERSHIP')">Ler Reflexão</button>
+            <a href="reflections/week05.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-          <p class="card-desc">Copyright battles, training set ethics, Fair Use in late-stage cyber-capitalism.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('reflections/week05.md', 'REFLECTION 05 // REMIX & OWNERSHIP')">READ IN TERMINAL</button>
-            <a href="reflections/week05.md" class="card-btn secondary" target="_blank">RAW</a>
-          </div>
-        </div>
+        </article>
 
-        <!-- Week 6 Reflection -->
-        <div class="cyber-card magenta" data-category="reflections">
-          <div class="card-meta">
-            <span class="card-num" style="color: var(--neon-magenta);">[RF.06]</span>
-            <span class="card-status standby">STANDBY</span>
+        <!-- Reflection 6 -->
+        <article class="editorial-card" data-category="reflections">
+          <div>
+            <div class="card-top">
+              <span class="card-index">REF. 06 / 13</span>
+              <span class="tag-badge">ENSAIO</span>
+            </div>
+            <h3 class="card-title">Reflexão 06</h3>
+            <div class="reflection-prompt-quote">
+              "What do we gain/lose when machines 'read' literature for us?"
+            </div>
+            <p class="card-summary">Macroanálise computacional versus leitura cerrada humanista e as perdas hermenêuticas do método.</p>
           </div>
-          <h3 class="card-title">Reflection 06</h3>
-          <div class="reflection-prompt-box">
-            "What do we gain/lose when machines 'read' literature for us?"
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('reflections/week06.md', 'REFLEXÃO 06 // DISTANT READING')">Ler Reflexão</button>
+            <a href="reflections/week06.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-          <p class="card-desc">Macroanalysis vs hermeneutic close-reading; quantitative compression of human emotion.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('reflections/week06.md', 'REFLECTION 06 // DISTANT READING')">READ IN TERMINAL</button>
-            <a href="reflections/week06.md" class="card-btn secondary" target="_blank">RAW</a>
-          </div>
-        </div>
+        </article>
 
-        <!-- Week 7 Reflection -->
-        <div class="cyber-card magenta" data-category="reflections">
-          <div class="card-meta">
-            <span class="card-num" style="color: var(--neon-magenta);">[RF.07]</span>
-            <span class="card-status standby">STANDBY</span>
+        <!-- Reflection 7 -->
+        <article class="editorial-card" data-category="reflections">
+          <div>
+            <div class="card-top">
+              <span class="card-index">REF. 07 / 13</span>
+              <span class="tag-badge">ENSAIO</span>
+            </div>
+            <h3 class="card-title">Reflexão 07</h3>
+            <div class="reflection-prompt-quote">
+              "How does AI reshape global geographies of power, labor, and environment?"
+            </div>
+            <p class="card-summary">Colonialismo de dados, assimetrias do Sul Global e o peso físico da nuvem corporativa.</p>
           </div>
-          <h3 class="card-title">Reflection 07</h3>
-          <div class="reflection-prompt-box">
-            "How does AI reshape global geographies of power, labor, and environment?"
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('reflections/week07.md', 'REFLEXÃO 07 // GEOGRAPHIES OF POWER')">Ler Reflexão</button>
+            <a href="reflections/week07.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-          <p class="card-desc">Digital colonialism, extraction corridors, and the physical weight of the computational cloud.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('reflections/week07.md', 'REFLECTION 07 // GEOGRAPHIES OF POWER')">READ IN TERMINAL</button>
-            <a href="reflections/week07.md" class="card-btn secondary" target="_blank">RAW</a>
-          </div>
-        </div>
+        </article>
 
-        <!-- Week 8 Reflection -->
-        <div class="cyber-card magenta" data-category="reflections">
-          <div class="card-meta">
-            <span class="card-num" style="color: var(--neon-magenta);">[RF.08]</span>
-            <span class="card-status standby">STANDBY</span>
+        <!-- Reflection 8 -->
+        <article class="editorial-card" data-category="reflections">
+          <div>
+            <div class="card-top">
+              <span class="card-index">REF. 08 / 13</span>
+              <span class="tag-badge">ENSAIO</span>
+            </div>
+            <h3 class="card-title">Reflexão 08</h3>
+            <div class="reflection-prompt-quote">
+              "Who is visible/invisible in AI networks? How does visualization reveal or obscure power?"
+            </div>
+            <p class="card-summary">Visualização crítica de dados, ilusão de objetividade neutra e visibilidade seletiva em grafos.</p>
           </div>
-          <h3 class="card-title">Reflection 08</h3>
-          <div class="reflection-prompt-box">
-            "Who is visible/invisible in AI networks? How does visualization reveal or obscure power?"
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('reflections/week08.md', 'REFLEXÃO 08 // NETWORKS & POWER')">Ler Reflexão</button>
+            <a href="reflections/week08.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-          <p class="card-desc">Critical data visualization, epistemological bias, and the panoptic gaze of network graphs.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('reflections/week08.md', 'REFLECTION 08 // INVISIBLE NETWORKS')">READ IN TERMINAL</button>
-            <a href="reflections/week08.md" class="card-btn secondary" target="_blank">RAW</a>
-          </div>
-        </div>
+        </article>
 
-        <!-- Week 9 Reflection -->
-        <div class="cyber-card magenta" data-category="reflections">
-          <div class="card-meta">
-            <span class="card-num" style="color: var(--neon-magenta);">[RF.09]</span>
-            <span class="card-status standby">STANDBY</span>
+        <!-- Reflection 9 -->
+        <article class="editorial-card" data-category="reflections">
+          <div>
+            <div class="card-top">
+              <span class="card-index">REF. 09 / 13</span>
+              <span class="tag-badge">ENSAIO</span>
+            </div>
+            <h3 class="card-title">Reflexão 09</h3>
+            <div class="reflection-prompt-quote">
+              "What is creativity when AI can generate endlessly? Where is the human in generative work?"
+            </div>
+            <p class="card-summary">Curadoria crítica, intenção artística e o papel do discernimento humano em meio à abundância sintética.</p>
           </div>
-          <h3 class="card-title">Reflection 09</h3>
-          <div class="reflection-prompt-box">
-            "What is creativity when AI can generate endlessly? Where is the human in generative work?"
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('reflections/week09.md', 'REFLEXÃO 09 // CREATIVITY')">Ler Reflexão</button>
+            <a href="reflections/week09.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-          <p class="card-desc">Curation, intentionality, prompt craft, and the aesthetics of computational abundance.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('reflections/week09.md', 'REFLECTION 09 // ENDLESS GENERATION')">READ IN TERMINAL</button>
-            <a href="reflections/week09.md" class="card-btn secondary" target="_blank">RAW</a>
-          </div>
-        </div>
+        </article>
 
-        <!-- Week 10 Reflection -->
-        <div class="cyber-card magenta" data-category="reflections">
-          <div class="card-meta">
-            <span class="card-num" style="color: var(--neon-magenta);">[RF.10]</span>
-            <span class="card-status standby">STANDBY</span>
+        <!-- Reflection 10 -->
+        <article class="editorial-card" data-category="reflections">
+          <div>
+            <div class="card-top">
+              <span class="card-index">REF. 10 / 13</span>
+              <span class="tag-badge">ENSAIO</span>
+            </div>
+            <h3 class="card-title">Reflexão 10</h3>
+            <div class="reflection-prompt-quote">
+              "How does AI change our relationship to play, rules, and narrative?"
+            </div>
+            <p class="card-summary">Subversão de regras de software, agência lúdica e desvios deliberados em sistemas procedurais.</p>
           </div>
-          <h3 class="card-title">Reflection 10</h3>
-          <div class="reflection-prompt-box">
-            "How does AI change our relationship to play, rules, and narrative?"
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('reflections/week10.md', 'REFLEXÃO 10 // PLAY & RULES')">Ler Reflexão</button>
+            <a href="reflections/week10.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-          <p class="card-desc">Subversive play, procedural rhetoric, and breaking the boundary conditions of machine rulebooks.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('reflections/week10.md', 'REFLECTION 10 // PLAY & NARRATIVE')">READ IN TERMINAL</button>
-            <a href="reflections/week10.md" class="card-btn secondary" target="_blank">RAW</a>
-          </div>
-        </div>
+        </article>
 
-        <!-- Week 11 Reflection -->
-        <div class="cyber-card magenta" data-category="reflections">
-          <div class="card-meta">
-            <span class="card-num" style="color: var(--neon-magenta);">[RF.11]</span>
-            <span class="card-status standby">STANDBY</span>
+        <!-- Reflection 11 -->
+        <article class="editorial-card" data-category="reflections">
+          <div>
+            <div class="card-top">
+              <span class="card-index">REF. 11 / 13</span>
+              <span class="tag-badge">ENSAIO</span>
+            </div>
+            <h3 class="card-title">Reflexão 11</h3>
+            <div class="reflection-prompt-quote">
+              "Who does the invisible work of AI, and who profits from it?"
+            </div>
+            <p class="card-summary">A classe trabalhadora fantasma dos microdados, moderação de conteúdo e a economia política do silício.</p>
           </div>
-          <h3 class="card-title">Reflection 11</h3>
-          <div class="reflection-prompt-box">
-            "Who does the invisible work of AI, and who profits from it?"
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('reflections/week11.md', 'REFLEXÃO 11 // INVISIBLE LABOR')">Ler Reflexão</button>
+            <a href="reflections/week11.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-          <p class="card-desc">Shadow workforces, content moderation trauma, mechanical turks, and tech conglomerate dividends.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('reflections/week11.md', 'REFLECTION 11 // INVISIBLE LABOR')">READ IN TERMINAL</button>
-            <a href="reflections/week11.md" class="card-btn secondary" target="_blank">RAW</a>
-          </div>
-        </div>
+        </article>
 
-        <!-- Week 12 Reflection -->
-        <div class="cyber-card magenta" data-category="reflections">
-          <div class="card-meta">
-            <span class="card-num" style="color: var(--neon-magenta);">[RF.12]</span>
-            <span class="card-status standby">STANDBY</span>
+        <!-- Reflection 12 -->
+        <article class="editorial-card" data-category="reflections">
+          <div>
+            <div class="card-top">
+              <span class="card-index">REF. 12 / 13</span>
+              <span class="tag-badge">ENSAIO</span>
+            </div>
+            <h3 class="card-title">Reflexão 12</h3>
+            <div class="reflection-prompt-quote">
+              "Is AI sustainable? What ecological trade-offs are we willing to accept?"
+            </div>
+            <p class="card-summary">Limites planetários, megawatt-horas por prompt e propostas de computação sustentável para as humanidades.</p>
           </div>
-          <h3 class="card-title">Reflection 12</h3>
-          <div class="reflection-prompt-box">
-            "Is AI sustainable? What ecological trade-offs are we willing to accept?"
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('reflections/week12.md', 'REFLEXÃO 12 // SUSTAINABILITY')">Ler Reflexão</button>
+            <a href="reflections/week12.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-          <p class="card-desc">Megawatt energy surges, reservoir evaporation for server racks, and degrowth cybernetics.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('reflections/week12.md', 'REFLECTION 12 // ECOLOGICAL TRADEOFFS')">READ IN TERMINAL</button>
-            <a href="reflections/week12.md" class="card-btn secondary" target="_blank">RAW</a>
-          </div>
-        </div>
+        </article>
 
-        <!-- Week 13 Reflection -->
-        <div class="cyber-card magenta" data-category="reflections">
-          <div class="card-meta">
-            <span class="card-num" style="color: var(--neon-magenta);">[RF.13]</span>
-            <span class="card-status standby">STANDBY</span>
+        <!-- Reflection 13 -->
+        <article class="editorial-card" data-category="reflections">
+          <div>
+            <div class="card-top">
+              <span class="card-index">REF. 13 / 13</span>
+              <span class="tag-badge">ENSAIO</span>
+            </div>
+            <h3 class="card-title">Reflexão 13</h3>
+            <div class="reflection-prompt-quote">
+              "Do we imagine AI futures as utopian, dystopian, or something in between? What do those visions reveal about us?"
+            </div>
+            <p class="card-summary">Imaginários sociotécnicos sobre o amanhã e o que as nossas distopias revelam sobre as fraturas do presente.</p>
           </div>
-          <h3 class="card-title">Reflection 13</h3>
-          <div class="reflection-prompt-box">
-            "Do we imagine AI futures as utopian, dystopian, or something in between? What do those visions reveal about us?"
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('reflections/week13.md', 'REFLEXÃO 13 // FUTURES')">Ler Reflexão</button>
+            <a href="reflections/week13.md" class="card-link-btn ghost" target="_blank">Arquivo Raw</a>
           </div>
-          <p class="card-desc">Speculative horizons, sociotechnical imaginaries, and the enduring human agency in cybernetic futures.</p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('reflections/week13.md', 'REFLECTION 13 // SPECULATIVE FUTURES')">READ IN TERMINAL</button>
-            <a href="reflections/week13.md" class="card-btn secondary" target="_blank">RAW</a>
-          </div>
-        </div>
+        </article>
       </div>
     </section>
 
     <!-- SECTION 4: AI LOG MATRIX -->
-    <section id="ai-log" style="margin-bottom: 3.5rem;">
-      <div class="section-header">
-        <h2 class="section-title">
-          <span style="color: var(--neon-green);">&gt;</span> AI SYNTHESIS LOG // AUDIT TRAIL
-        </h2>
-        <span class="section-tag" style="color: var(--neon-green); border-color: var(--neon-green-dim);">// TRANSPARENCY & TRACEABILITY</span>
+    <section class="content-section" id="ai-log">
+      <div class="section-lead-row">
+        <h2 class="section-heading">04 / Registro de Proveniência de IA</h2>
+        <span class="section-counter">TRANSPARÊNCIA & REPRODUTIBILIDADE</span>
       </div>
 
-      <div class="cyber-grid">
-        <div class="cyber-card" data-category="ai-log" style="grid-column: 1 / -1;">
-          <div class="card-meta">
-            <span class="card-num" style="color: var(--neon-green);">[AI.LOG.TEMPLATE]</span>
-            <span class="card-status online">AUDITABLE</span>
+      <div class="editorial-grid">
+        <article class="editorial-card" data-category="ai-log" style="grid-column: 1 / -1;">
+          <div>
+            <div class="card-top">
+              <span class="card-index">REGISTRO DE PROVENIÊNCIA</span>
+              <span class="tag-badge">AUDITÁVEL</span>
+            </div>
+            <h3 class="card-title">Ledger de Uso e Atribuição de IA</h3>
+            <p class="card-summary">
+              Toda interação e auxílio fornecido por inteligência artificial ao longo da disciplina é registrado com rigor: prompts textuais exatos, saídas produzidas pelas ferramentas, intervenções humanas aceitas ou recusadas e a justificativa metodológica por trás de cada decisão.
+            </p>
           </div>
-          <h3 class="card-title">Machine Attribution & Prompt Ledger</h3>
-          <p class="card-desc">
-            All algorithmic assistance across the course is logged systematically: capturing exact prompts, model outputs, what was accepted or rejected, and the human critical reasoning driving each decision.
-          </p>
-          <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('ai-log/template-ai-log.md', 'AI SYNTHESIS LOG TEMPLATE')">INSPECT LOG TEMPLATE</button>
-            <a href="ai-log/template-ai-log.md" class="card-btn secondary" target="_blank">VIEW RAW SOURCE</a>
+          <div class="card-action-bar">
+            <button class="card-link-btn" onclick="openEditorialDoc('ai-log/template-ai-log.md', 'TEMPLATE DE REGISTRO DE IA')">Abrir Template de Registro</button>
+            <a href="ai-log/template-ai-log.md" class="card-link-btn ghost" target="_blank">Ver Arquivo Raw</a>
           </div>
-        </div>
+        </article>
       </div>
     </section>
 
   </main>
 
-  <!-- Interactive Holographic Terminal Reader Modal -->
-  <div class="cyber-modal" id="cyber-modal">
-    <div class="modal-window">
-      <div class="modal-header">
-        <div class="modal-title-wrapper">
-          <span class="modal-title" id="modal-doc-title">DOCUMENT TERMINAL</span>
-          <span class="modal-path" id="modal-doc-path">// protocol.md</span>
+  <!-- Minimalist Reading Modal / Drawer -->
+  <div class="editorial-modal" id="editorial-modal" role="dialog" aria-modal="true" aria-labelledby="modal-doc-title">
+    <div class="modal-dialog">
+      <div class="modal-top-bar">
+        <div class="modal-title-group">
+          <span class="modal-heading" id="modal-doc-title">VISUALIZAÇÃO DE DOCUMENTO</span>
+          <span class="modal-meta-path" id="modal-doc-path">pages/document.md</span>
         </div>
-        <div class="modal-controls">
-          <button class="hud-btn" id="modal-copy-btn">COPY MD</button>
-          <a href="#" id="modal-raw-link" target="_blank" class="hud-btn">RAW</a>
-          <button class="modal-close-btn" id="modal-close-btn">[X] CLOSE</button>
+        <div class="modal-btn-group">
+          <button class="modal-close-trigger" id="modal-copy-btn">Copiar MD</button>
+          <a href="#" id="modal-raw-link" target="_blank" class="modal-close-trigger">Raw</a>
+          <button class="modal-close-trigger" id="modal-close-btn" aria-label="Fechar janela">[X] Fechar</button>
         </div>
       </div>
-      <div class="modal-body" id="modal-body-content">
-        <!-- Markdown Streamed Here Dynamically -->
+      <div class="modal-scrollable-content" id="modal-body-content">
+        <!-- Markdown Streamed Here -->
       </div>
     </div>
   </div>
 
-  <!-- Cyber Footer -->
-  <footer class="cyber-footer">
-    <div class="footer-inner">
-      <div class="footer-col">
-        <div class="footer-heading">DH101 // CRITICAL MAKING</div>
-        <p class="footer-text">
-          Digital Humanities 101 - Spring 2026. A speculative inquiry into fabrication, algorithmic agency, reverse engineering, and critical techno-resistance.
-        </p>
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="site-container">
+      <div class="footer-columns">
+        <div>
+          <div class="footer-brand-title">DH101 — CRITICAL MAKING</div>
+          <p class="footer-bio">
+            Digital Humanities 101, Spring 2026. Investigação crítica sobre fabricação digital, agência maquínica, engenharia reversa e estética computacional.
+          </p>
+        </div>
+        <div>
+          <div class="footer-group-heading">DIRETRIZES & DOCUMENTOS</div>
+          <ul class="footer-link-list">
+            <li><a href="javascript:openEditorialDoc('pages/about.md', 'DOSSIÊ DO AUTOR')">Dossiê do Autor</a></li>
+            <li><a href="javascript:openEditorialDoc('pages/how-i-use-ai.md', 'POLÍTICA DE USO DE IA')">Política de Uso de IA</a></li>
+            <li><a href="javascript:openEditorialDoc('pages/accessibility.md', 'ACESSIBILIDADE')">Acessibilidade Digital</a></li>
+            <li><a href="javascript:openEditorialDoc('pages/sustainability.md', 'SUSTENTABILIDADE')">Sustentabilidade</a></li>
+            <li><a href="javascript:openEditorialDoc('pages/markdown-guide.md', 'GUIA MARKDOWN')">Guia Markdown</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-group-heading">METADADOS & HOSPEDAGEM</div>
+          <p class="meta-text" style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.7;">
+            CURSO: DH101 (SPRING 2026)<br>
+            HOSPEDAGEM: GITHUB PAGES<br>
+            MOTOR: JEKYLL STATIC BUILD<br>
+            LICENÇA: MIT OPEN SOURCE
+          </p>
+        </div>
       </div>
-      <div class="footer-col">
-        <div class="footer-heading">CORE PROTOCOLS</div>
-        <ul class="footer-links">
-          <li><a href="javascript:openCyberDoc('pages/about.md', 'ABOUT ME')">// About Me</a></li>
-          <li><a href="javascript:openCyberDoc('pages/how-i-use-ai.md', 'HOW I USE AI')">// How I Use AI</a></li>
-          <li><a href="javascript:openCyberDoc('pages/accessibility.md', 'ACCESSIBILITY')">// Accessibility Audit</a></li>
-          <li><a href="javascript:openCyberDoc('pages/sustainability.md', 'SUSTAINABILITY')">// Sustainability Statement</a></li>
-          <li><a href="javascript:openCyberDoc('pages/markdown-guide.md', 'MARKDOWN GUIDE')">// Markdown Guide</a></li>
-        </ul>
+
+      <div class="footer-bottom-row">
+        <div>&copy; 2026 DH101 OPERATIVE. TODOS OS DIREITOS RESERVADOS.</div>
+        <div>PORTFÓLIO EDITORIAL & MINIMALISTA</div>
       </div>
-      <div class="footer-col">
-        <div class="footer-heading">CYBERNETIC TELEMETRY</div>
-        <p class="footer-text">
-          NODE: DH101-MAIN<br>
-          HOST: GITHUB PAGES // JEKYLL READY<br>
-          INTERFACE: CYBERPUNK HUD v2.6<br>
-          ENCRYPTION: 256-BIT QUANTUM
-        </p>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div>&copy; 2026 DH101 OPERATIVE. MIT LICENSE.</div>
-      <div>NEURAL INTERFACE: ACTIVE // SECURE</div>
     </div>
   </footer>
 
-  <!-- Cyberpunk Interactive Script Engine -->
-  <script src="assets/js/cyberpunk.js"></script>
+  <!-- Scripts -->
+  <script src="assets/js/editorial.js"></script>
 </body>
 </html>
-

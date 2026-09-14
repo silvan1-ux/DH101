@@ -1,5 +1,5 @@
-title: "DH101 // CRITICAL MAKING CYBERDECK"
-description: "Digital Humanities 101 Spring 2026 - Critical Making in the Age of AI"
+title: "DH101 — Critical Making in the Age of AI | Research Archive & Portfolio"
+description: "Digital Humanities 101 Spring 2026. Portfólio acadêmico e arquivo de pesquisa crítica sobre fabricação digital, inteligência artificial e cultura computacional."
 baseurl: "/DH101"
 url: "https://silvan1-ux.github.io"
 
@@ -22,4 +22,3 @@ defaults:
       path: ""
     values:
       layout: "default"
-
