@@ -1,8 +1,10 @@
-# Week 4 – Comic & Storytelling
+# Week 3 – Comic & Storytelling
 
 ## The Artifact
-Describe or embed your artifact here.
-Include images, links, or media as appropriate.
+
+<object data="../assets/pdfs/Make%203_%20Make%20a%20Comic.pdf" type="application/pdf" width="100%" height="900px">
+  <p>Seu PDF não carregou. Abra o arquivo em: <a href="../assets/pdfs/Make%203_%20Make%20a%20Comic.pdf" target="_blank" rel="noopener">Make 3 - Make a Comic.pdf</a></p>
+</object>
 
 ## Process Notes
 How did you make this?

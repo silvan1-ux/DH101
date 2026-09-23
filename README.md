@@ -4,6 +4,8 @@
 
 Hello, DH — this site documents my critical making and speculative fabrication research this semester in the age of AI.
 
+Website: https://silvan1-ux.github.io/DH101/
+
 ---
 
 ## ⚡ System Architecture & Features
@@ -29,8 +31,8 @@ This repository is styled as an immersive **Cyberpunk Cyberdeck** built with hig
 
 ### Maker Dispatches (`makes/`)
 - [Week 01: Reverse Engineering](makes/week01.md)
-- [Week 03: Selfie & Identity](makes/week03.md)
-- [Week 04: Comic & Storytelling](makes/week04.md)
+- [Week 02: Selfie & Identity](makes/week03.md)
+- [Week 03: Comic & Storytelling](makes/week04.md)
 - [Week 05: GIF & Remix Culture](makes/week05.md)
 - [Week 06: Text & Distant Reading](makes/week06.md)
 - [Week 07: Mapping AI Worlds](makes/week07.md)
