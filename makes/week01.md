@@ -1,3 +1,11 @@
+---
+title: "Week 1: Reverse Engineering"
+week: 1
+make_number: 1
+tags: ["reverse engineering", "DALL-E 3", "authorship"]
+summary: "A reverse-engineering analysis of DALL-E 3, its data, systems, human decisions, and conversational design."
+---
+
 # Week 1: Reverse Engineering
 
 ## Reverse-engineering a DH/AI project: DALL-E 3
