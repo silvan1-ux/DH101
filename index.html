@@ -1,3 +1,6 @@
+---
+layout: null
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +10,7 @@
   <meta name="description" content="Digital Humanities 101 - Spring 2026 Critical Making in the Age of AI Research Terminal & Portfolio">
   
   <!-- Cyberpunk Theme Stylesheet -->
-  <link rel="stylesheet" href="assets/css/cyberpunk.css">
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/cyberpunk.css">
 </head>
 <body>
   <!-- Ambient Cyber Particle Canvas -->
@@ -19,7 +22,7 @@
   <!-- Cyberpunk HUD Header -->
   <header class="cyber-header">
     <div class="header-inner">
-      <a href="index.html" class="brand-wrapper">
+      <a href="{{ site.baseurl }}/" class="brand-wrapper">
         <span class="brand-glitch">DH101</span>
         <span class="brand-badge">CYBERDECK v2.6</span>
       </a>
@@ -80,10 +83,10 @@
         <a href="#reflections" class="cyber-btn magenta">
           <span>[*] NEURAL REFLECTIONS</span>
         </a>
-        <button class="cyber-btn" onclick="openCyberDoc('pages/about.md', 'OPERATIVE DOSSIER // ABOUT ME')">
+        <button class="cyber-btn" onclick="openCyberDoc('pages/about.html', 'OPERATIVE DOSSIER // ABOUT ME')">
           <span>[?] OPERATIVE DOSSIER</span>
         </button>
-        <button class="cyber-btn" onclick="openCyberDoc('pages/how-i-use-ai.md', 'AI INTERACTION PROTOCOL')">
+        <button class="cyber-btn" onclick="openCyberDoc('pages/how-i-use-ai.html', 'AI INTERACTION PROTOCOL')">
           <span>[!] AI USE PROTOCOL</span>
         </button>
       </div>
@@ -144,8 +147,8 @@
           <h3 class="card-title">Operative Dossier</h3>
           <p class="card-desc">Personal profile, background, academic trajectory, and critical research interests in Digital Humanities.</p>
           <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('pages/about.md', 'OPERATIVE DOSSIER // ABOUT ME')">READ IN TERMINAL</button>
-            <a href="pages/about.md" class="card-btn secondary" target="_blank">RAW</a>
+            <button class="card-btn" onclick="openCyberDoc('pages/about.html', 'OPERATIVE DOSSIER // ABOUT ME')">READ IN TERMINAL</button>
+            <a href="{{ site.baseurl }}/pages/about.html" class="card-btn secondary" target="_blank">VIEW PAGE</a>
           </div>
         </div>
 
@@ -158,8 +161,8 @@
           <h3 class="card-title">How I Use AI</h3>
           <p class="card-desc">Methodological framework, boundaries, ethical principles, and disclosure standards for human-machine co-creation.</p>
           <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('pages/how-i-use-ai.md', 'HOW I USE AI // PROTOCOL')">READ IN TERMINAL</button>
-            <a href="pages/how-i-use-ai.md" class="card-btn secondary" target="_blank">RAW</a>
+            <button class="card-btn" onclick="openCyberDoc('pages/how-i-use-ai.html', 'HOW I USE AI // PROTOCOL')">READ IN TERMINAL</button>
+            <a href="{{ site.baseurl }}/pages/how-i-use-ai.html" class="card-btn secondary" target="_blank">VIEW PAGE</a>
           </div>
         </div>
 
@@ -172,8 +175,8 @@
           <h3 class="card-title">Accessibility Statement</h3>
           <p class="card-desc">Universal design considerations, screen reader readiness, semantic hierarchy, color contrast, and inclusive computing.</p>
           <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('pages/accessibility.md', 'ACCESSIBILITY AUDIT')">READ IN TERMINAL</button>
-            <a href="pages/accessibility.md" class="card-btn secondary" target="_blank">RAW</a>
+            <button class="card-btn" onclick="openCyberDoc('pages/accessibility.html', 'ACCESSIBILITY AUDIT')">READ IN TERMINAL</button>
+            <a href="{{ site.baseurl }}/pages/accessibility.html" class="card-btn secondary" target="_blank">VIEW PAGE</a>
           </div>
         </div>
 
@@ -186,8 +189,8 @@
           <h3 class="card-title">Sustainability</h3>
           <p class="card-desc">Ecological footprint analysis of digital infrastructure, carbon costs of compute, and minimalist hosting paradigms.</p>
           <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('pages/sustainability.md', 'SUSTAINABILITY MANIFESTO')">READ IN TERMINAL</button>
-            <a href="pages/sustainability.md" class="card-btn secondary" target="_blank">RAW</a>
+            <button class="card-btn" onclick="openCyberDoc('pages/sustainability.html', 'SUSTAINABILITY MANIFESTO')">READ IN TERMINAL</button>
+            <a href="{{ site.baseurl }}/pages/sustainability.html" class="card-btn secondary" target="_blank">VIEW PAGE</a>
           </div>
         </div>
 
@@ -200,8 +203,8 @@
           <h3 class="card-title">Markdown Field Guide</h3>
           <p class="card-desc">Technical manual on structured typography, front matter, relative asset linkage, and weekly reflection formatting.</p>
           <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('pages/markdown-guide.md', 'MARKDOWN FIELD GUIDE')">READ IN TERMINAL</button>
-            <a href="pages/markdown-guide.md" class="card-btn secondary" target="_blank">RAW</a>
+            <button class="card-btn" onclick="openCyberDoc('pages/markdown-guide.html', 'MARKDOWN FIELD GUIDE')">READ IN TERMINAL</button>
+            <a href="{{ site.baseurl }}/pages/markdown-guide.html" class="card-btn secondary" target="_blank">VIEW PAGE</a>
           </div>
         </div>
       </div>
@@ -209,6 +212,15 @@
 
     <!-- SECTION 2: MAKER DISPATCHES -->
     <section id="makes" style="margin-bottom: 3.5rem;">
+      <div class="section-header">
+        <h2 class="section-title"><span style="color: var(--neon-cyan);">&gt;</span> MAKER DISPATCHES // FABRICATION</h2>
+        <span class="section-tag">// ACTIVITY INDEX</span>
+      </div>
+      <p class="card-desc">Browse published activities, filter by tag, follow the course timeline, and open each activity record.</p>
+      <a class="cyber-btn primary" href="{{ site.baseurl }}/makes/">OPEN THE MAKER DISPATCH INDEX</a>
+    </section>
+
+    {% comment %}The generated activity index replaces the archived static cards.{% endcomment %}{% comment %}
       <div class="section-header">
         <h2 class="section-title">
           <span style="color: var(--neon-cyan);">&gt;</span> MAKER DISPATCHES // FABRICATION
@@ -226,8 +238,8 @@
           <h3 class="card-title">Week 1: Reverse Engineering</h3>
           <p class="card-desc">Deconstructing technical systems to inspect hidden architectures, mechanical logic, and physical-to-digital translations.</p>
           <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('makes/week01.md', 'WEEK 01 // REVERSE ENGINEERING')">READ IN TERMINAL</button>
-            <a href="makes/week01.md" class="card-btn secondary" target="_blank">RAW</a>
+            <button class="card-btn" onclick="openCyberDoc('makes/week01.html', 'WEEK 01 // REVERSE ENGINEERING')">READ IN TERMINAL</button>
+            <a href="{{ site.baseurl }}/makes/week01.html" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
 
@@ -240,8 +252,8 @@
           <h3 class="card-title">Week 2: Selfie & Identity</h3>
           <p class="card-desc">Algorithmic portraiture, biometric representations, facial capture, and digital subjectivity.</p>
           <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('makes/week03.md', 'WEEK 02 // SELFIE & IDENTITY')">READ IN TERMINAL</button>
-            <a href="makes/week03.md" class="card-btn secondary" target="_blank">RAW</a>
+            <button class="card-btn" onclick="openCyberDoc('makes/week03.html', 'WEEK 02 // SELFIE & IDENTITY')">READ IN TERMINAL</button>
+            <a href="{{ site.baseurl }}/makes/week03.html" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
 
@@ -254,8 +266,8 @@
           <h3 class="card-title">Week 3: Comic & Storytelling</h3>
           <p class="card-desc">Visual sequential narratives, generative panel pacing, semiotics, and multilinear storytelling.</p>
           <div class="card-actions">
-            <button class="card-btn" onclick="openCyberDoc('makes/week04.md', 'WEEK 03 // COMIC & STORYTELLING')">READ IN TERMINAL</button>
-            <a href="makes/week04.md" class="card-btn secondary" target="_blank">RAW</a>
+            <button class="card-btn" onclick="openCyberDoc('makes/week04.html', 'WEEK 03 // COMIC & STORYTELLING')">READ IN TERMINAL</button>
+            <a href="{{ site.baseurl }}/makes/week04.html" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
 
@@ -269,7 +281,7 @@
           <p class="card-desc">Micro-looping aesthetics, kinetic memory, cultural appropriation, and transformative digital collage.</p>
           <div class="card-actions">
             <button class="card-btn" onclick="openCyberDoc('makes/week05.md', 'WEEK 05 // GIF & REMIX CULTURE')">READ IN TERMINAL</button>
-            <a href="makes/week05.md" class="card-btn secondary" target="_blank">RAW</a>
+            <a href="{{ site.baseurl }}/makes/week05.html" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
 
@@ -283,7 +295,7 @@
           <p class="card-desc">Corpus linguistics, statistical textual analysis, n-gram mining, and algorithmic literary critique.</p>
           <div class="card-actions">
             <button class="card-btn" onclick="openCyberDoc('makes/week06.md', 'WEEK 06 // TEXT & DISTANT READING')">READ IN TERMINAL</button>
-            <a href="makes/week06.md" class="card-btn secondary" target="_blank">RAW</a>
+            <a href="{{ site.baseurl }}/makes/week06.html" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
 
@@ -297,7 +309,7 @@
           <p class="card-desc">Spatial representations of machine topologies, geopolitical compute clusters, and algorithmic cartography.</p>
           <div class="card-actions">
             <button class="card-btn" onclick="openCyberDoc('makes/week07.md', 'WEEK 07 // MAPPING AI WORLDS')">READ IN TERMINAL</button>
-            <a href="makes/week07.md" class="card-btn secondary" target="_blank">RAW</a>
+            <a href="{{ site.baseurl }}/makes/week07.html" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
 
@@ -311,7 +323,7 @@
           <p class="card-desc">Graph visualizations, power nodes, citation topology, and systemic information distribution.</p>
           <div class="card-actions">
             <button class="card-btn" onclick="openCyberDoc('makes/week08.md', 'WEEK 08 // NETWORKS OF KNOWLEDGE')">READ IN TERMINAL</button>
-            <a href="makes/week08.md" class="card-btn secondary" target="_blank">RAW</a>
+            <a href="{{ site.baseurl }}/makes/week08.html" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
 
@@ -325,7 +337,7 @@
           <p class="card-desc">Autonomous generative scripts, conversational agents, recursive state machines, and algorithmic dialogue.</p>
           <div class="card-actions">
             <button class="card-btn" onclick="openCyberDoc('makes/week09.md', 'WEEK 09 // BOTS & GENERATORS')">READ IN TERMINAL</button>
-            <a href="makes/week09.md" class="card-btn secondary" target="_blank">RAW</a>
+            <a href="{{ site.baseurl }}/makes/week09.html" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
 
@@ -339,7 +351,7 @@
           <p class="card-desc">Ludic systems, rule-bound cybernetic feedback loops, procedural generation, and critical play mechanics.</p>
           <div class="card-actions">
             <button class="card-btn" onclick="openCyberDoc('makes/week10.md', 'WEEK 10 // GAMES & PLAY')">READ IN TERMINAL</button>
-            <a href="makes/week10.md" class="card-btn secondary" target="_blank">RAW</a>
+            <a href="{{ site.baseurl }}/makes/week10.html" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
 
@@ -353,7 +365,7 @@
           <p class="card-desc">Ghost work, RLHF micro-tasks, platform capitalism, dataset extraction, and worker resistance.</p>
           <div class="card-actions">
             <button class="card-btn" onclick="openCyberDoc('makes/week11.md', 'WEEK 11 // AI & LABOR')">READ IN TERMINAL</button>
-            <a href="makes/week11.md" class="card-btn secondary" target="_blank">RAW</a>
+            <a href="{{ site.baseurl }}/makes/week11.html" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
 
@@ -367,7 +379,7 @@
           <p class="card-desc">Data center thermal loads, rare-earth mineral extraction, cooling water consumption, and green computing.</p>
           <div class="card-actions">
             <button class="card-btn" onclick="openCyberDoc('makes/week12.md', 'WEEK 12 // AI & ECOLOGY')">READ IN TERMINAL</button>
-            <a href="makes/week12.md" class="card-btn secondary" target="_blank">RAW</a>
+            <a href="{{ site.baseurl }}/makes/week12.html" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
 
@@ -381,12 +393,13 @@
           <p class="card-desc">Speculative post-human design, cybernetic governance, cyborg identity, and the horizon of making.</p>
           <div class="card-actions">
             <button class="card-btn" onclick="openCyberDoc('makes/week13.md', 'WEEK 13 // FUTURES OF AI')">READ IN TERMINAL</button>
-            <a href="makes/week13.md" class="card-btn secondary" target="_blank">RAW</a>
+            <a href="{{ site.baseurl }}/makes/week13.html" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
       </div>
     </section>
 
+    {% endcomment %}
     <!-- SECTION 3: NEURAL REFLECTIONS -->
     <section id="reflections" style="margin-bottom: 3.5rem;">
       <div class="section-header">
@@ -410,7 +423,7 @@
           <p class="card-desc">Investigating ontological boundaries between artisanal human craft and machine synthesis.</p>
           <div class="card-actions">
             <button class="card-btn" onclick="openCyberDoc('reflections/week01.md', 'REFLECTION 01 // CRITICAL MAKING')">READ IN TERMINAL</button>
-            <a href="reflections/week01.md" class="card-btn secondary" target="_blank">RAW</a>
+            <a href="{{ site.baseurl }}/reflections/week01.md" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
 
@@ -427,7 +440,7 @@
           <p class="card-desc">Exploring pattern recognition, mirror tests of artificial intelligence, and existential subjectivity.</p>
           <div class="card-actions">
             <button class="card-btn" onclick="openCyberDoc('reflections/week02.md', 'REFLECTION 02 // DEFINING HUMAN')">READ IN TERMINAL</button>
-            <a href="reflections/week02.md" class="card-btn secondary" target="_blank">RAW</a>
+            <a href="{{ site.baseurl }}/reflections/week02.md" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
 
@@ -444,7 +457,7 @@
           <p class="card-desc">The simulation of the self in social feeds, virtual avatars, and synthetic representations.</p>
           <div class="card-actions">
             <button class="card-btn" onclick="openCyberDoc('reflections/week03.md', 'REFLECTION 03 // AUTHENTICITY')">READ IN TERMINAL</button>
-            <a href="reflections/week03.md" class="card-btn secondary" target="_blank">RAW</a>
+            <a href="{{ site.baseurl }}/reflections/week03.md" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
 
@@ -461,7 +474,7 @@
           <p class="card-desc">Authorship tensions, mythologies of narrative generation, and narrative agency.</p>
           <div class="card-actions">
             <button class="card-btn" onclick="openCyberDoc('reflections/week04.md', 'REFLECTION 04 // COLLABORATOR OR PLAGIARIST')">READ IN TERMINAL</button>
-            <a href="reflections/week04.md" class="card-btn secondary" target="_blank">RAW</a>
+            <a href="{{ site.baseurl }}/reflections/week04.md" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
 
@@ -478,7 +491,7 @@
           <p class="card-desc">Copyright battles, training set ethics, Fair Use in late-stage cyber-capitalism.</p>
           <div class="card-actions">
             <button class="card-btn" onclick="openCyberDoc('reflections/week05.md', 'REFLECTION 05 // REMIX & OWNERSHIP')">READ IN TERMINAL</button>
-            <a href="reflections/week05.md" class="card-btn secondary" target="_blank">RAW</a>
+            <a href="{{ site.baseurl }}/reflections/week05.md" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
 
@@ -495,7 +508,7 @@
           <p class="card-desc">Macroanalysis vs hermeneutic close-reading; quantitative compression of human emotion.</p>
           <div class="card-actions">
             <button class="card-btn" onclick="openCyberDoc('reflections/week06.md', 'REFLECTION 06 // DISTANT READING')">READ IN TERMINAL</button>
-            <a href="reflections/week06.md" class="card-btn secondary" target="_blank">RAW</a>
+            <a href="{{ site.baseurl }}/reflections/week06.md" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
 
@@ -512,7 +525,7 @@
           <p class="card-desc">Digital colonialism, extraction corridors, and the physical weight of the computational cloud.</p>
           <div class="card-actions">
             <button class="card-btn" onclick="openCyberDoc('reflections/week07.md', 'REFLECTION 07 // GEOGRAPHIES OF POWER')">READ IN TERMINAL</button>
-            <a href="reflections/week07.md" class="card-btn secondary" target="_blank">RAW</a>
+            <a href="{{ site.baseurl }}/reflections/week07.md" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
 
@@ -529,7 +542,7 @@
           <p class="card-desc">Critical data visualization, epistemological bias, and the panoptic gaze of network graphs.</p>
           <div class="card-actions">
             <button class="card-btn" onclick="openCyberDoc('reflections/week08.md', 'REFLECTION 08 // INVISIBLE NETWORKS')">READ IN TERMINAL</button>
-            <a href="reflections/week08.md" class="card-btn secondary" target="_blank">RAW</a>
+            <a href="{{ site.baseurl }}/reflections/week08.md" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
 
@@ -546,7 +559,7 @@
           <p class="card-desc">Curation, intentionality, prompt craft, and the aesthetics of computational abundance.</p>
           <div class="card-actions">
             <button class="card-btn" onclick="openCyberDoc('reflections/week09.md', 'REFLECTION 09 // ENDLESS GENERATION')">READ IN TERMINAL</button>
-            <a href="reflections/week09.md" class="card-btn secondary" target="_blank">RAW</a>
+            <a href="{{ site.baseurl }}/reflections/week09.md" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
 
@@ -563,7 +576,7 @@
           <p class="card-desc">Subversive play, procedural rhetoric, and breaking the boundary conditions of machine rulebooks.</p>
           <div class="card-actions">
             <button class="card-btn" onclick="openCyberDoc('reflections/week10.md', 'REFLECTION 10 // PLAY & NARRATIVE')">READ IN TERMINAL</button>
-            <a href="reflections/week10.md" class="card-btn secondary" target="_blank">RAW</a>
+            <a href="{{ site.baseurl }}/reflections/week10.md" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
 
@@ -580,7 +593,7 @@
           <p class="card-desc">Shadow workforces, content moderation trauma, mechanical turks, and tech conglomerate dividends.</p>
           <div class="card-actions">
             <button class="card-btn" onclick="openCyberDoc('reflections/week11.md', 'REFLECTION 11 // INVISIBLE LABOR')">READ IN TERMINAL</button>
-            <a href="reflections/week11.md" class="card-btn secondary" target="_blank">RAW</a>
+            <a href="{{ site.baseurl }}/reflections/week11.md" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
 
@@ -597,7 +610,7 @@
           <p class="card-desc">Megawatt energy surges, reservoir evaporation for server racks, and degrowth cybernetics.</p>
           <div class="card-actions">
             <button class="card-btn" onclick="openCyberDoc('reflections/week12.md', 'REFLECTION 12 // ECOLOGICAL TRADEOFFS')">READ IN TERMINAL</button>
-            <a href="reflections/week12.md" class="card-btn secondary" target="_blank">RAW</a>
+            <a href="{{ site.baseurl }}/reflections/week12.md" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
 
@@ -614,7 +627,7 @@
           <p class="card-desc">Speculative horizons, sociotechnical imaginaries, and the enduring human agency in cybernetic futures.</p>
           <div class="card-actions">
             <button class="card-btn" onclick="openCyberDoc('reflections/week13.md', 'REFLECTION 13 // SPECULATIVE FUTURES')">READ IN TERMINAL</button>
-            <a href="reflections/week13.md" class="card-btn secondary" target="_blank">RAW</a>
+            <a href="{{ site.baseurl }}/reflections/week13.md" class="card-btn secondary" target="_blank">RAW</a>
           </div>
         </div>
       </div>
@@ -641,7 +654,7 @@
           </p>
           <div class="card-actions">
             <button class="card-btn" onclick="openCyberDoc('ai-log/template-ai-log.md', 'AI SYNTHESIS LOG TEMPLATE')">INSPECT LOG TEMPLATE</button>
-            <a href="ai-log/template-ai-log.md" class="card-btn secondary" target="_blank">VIEW RAW SOURCE</a>
+            <a href="{{ site.baseurl }}/ai-log/template-ai-log.md" class="card-btn secondary" target="_blank">VIEW RAW SOURCE</a>
           </div>
         </div>
       </div>
@@ -681,11 +694,11 @@
       <div class="footer-col">
         <div class="footer-heading">CORE PROTOCOLS</div>
         <ul class="footer-links">
-          <li><a href="javascript:openCyberDoc('pages/about.md', 'ABOUT ME')">// About Me</a></li>
-          <li><a href="javascript:openCyberDoc('pages/how-i-use-ai.md', 'HOW I USE AI')">// How I Use AI</a></li>
-          <li><a href="javascript:openCyberDoc('pages/accessibility.md', 'ACCESSIBILITY')">// Accessibility Audit</a></li>
-          <li><a href="javascript:openCyberDoc('pages/sustainability.md', 'SUSTAINABILITY')">// Sustainability Statement</a></li>
-          <li><a href="javascript:openCyberDoc('pages/markdown-guide.md', 'MARKDOWN GUIDE')">// Markdown Guide</a></li>
+          <li><a href="{{ site.baseurl }}/pages/about.html">// About Me</a></li>
+          <li><a href="{{ site.baseurl }}/pages/how-i-use-ai.html">// How I Use AI</a></li>
+          <li><a href="{{ site.baseurl }}/pages/accessibility.html">// Accessibility Audit</a></li>
+          <li><a href="{{ site.baseurl }}/pages/sustainability.html">// Sustainability Statement</a></li>
+          <li><a href="{{ site.baseurl }}/pages/markdown-guide.html">// Markdown Guide</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -705,7 +718,7 @@
   </footer>
 
   <!-- Cyberpunk Interactive Script Engine -->
-  <script src="assets/js/cyberpunk.js"></script>
+  <script src="{{ site.baseurl }}/assets/js/cyberpunk.js"></script>
 </body>
 </html>
 

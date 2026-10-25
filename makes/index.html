@@ -1,0 +1,90 @@
+---
+layout: default
+title: "Maker Dispatches // Activity Index"
+description: "DH 101 weekly making activities, projects, and source status."
+permalink: /makes/
+---
+
+<section class="activity-index" aria-labelledby="activity-index-title">
+  <div class="breadcrumbs"><a href="{{ site.baseurl }}/">MISSION CONTROL</a> // MAKER DISPATCHES</div>
+  <p class="activity-kicker">DH 101 // COURSE PROGRESS</p>
+  <h1 id="activity-index-title">MAKER DISPATCHES</h1>
+  <p class="activity-intro">Weekly activities, artifacts, and source status.</p>
+
+  {% assign activities = site.pages | where_exp: "item", "item.make_number" | sort: "week" %}
+  <nav class="activity-timeline" aria-label="Course activity timeline">
+    <ol>
+      {% for week in (1..13) %}
+        {% assign activity = activities | where: "week", week | first %}
+        <li class="{% if activity %}timeline-complete{% elsif week == 2 %}timeline-none{% else %}timeline-missing{% endif %}">
+          {% if activity %}
+            <a href="{{ site.baseurl }}{{ activity.url }}" aria-label="{{ activity.title }}">W{{ week }}</a>
+          {% elsif week == 2 %}
+            <span aria-label="Week 2: no activity, website-building week">W{{ week }}</span>
+          {% else %}
+            <a href="#week-{{ week }}" aria-label="Week {{ week }}: source PDF missing">W{{ week }}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+    <p class="timeline-legend"><span>Published</span><span>No activity</span><span>Source PDF missing</span></p>
+  </nav>
+
+  <div class="activity-controls">
+    <label class="activity-search-label" for="activity-search">Search activities</label>
+    <input id="activity-search" class="search-input" type="search" placeholder="Search title, summary, or tag">
+    <div class="activity-tag-filters" role="group" aria-label="Filter activities by tag">
+      <button class="filter-btn active" type="button" data-activity-tag="all" aria-pressed="true">All tags</button>
+      {% assign all_tags = "" | split: "," %}
+      {% for activity in activities %}
+        {% for tag in activity.tags %}
+          {% unless all_tags contains tag %}
+            {% assign tag_array = tag | split: "|||" %}
+            {% assign all_tags = all_tags | concat: tag_array %}
+          {% endunless %}
+        {% endfor %}
+      {% endfor %}
+      {% assign all_tags = all_tags | sort %}
+      {% for tag in all_tags %}
+        <button class="filter-btn" type="button" data-activity-tag="{{ tag | escape }}" aria-pressed="false">{{ tag }}</button>
+      {% endfor %}
+    </div>
+  </div>
+
+  <p id="activity-result-count" class="activity-result-count" aria-live="polite"></p>
+  <div class="activity-card-grid" id="activity-card-grid">
+    {% for week in (1..13) %}
+      {% assign activity = activities | where: "week", week | first %}
+      <article class="activity-card {% unless activity %}activity-card-placeholder{% endunless %}" id="week-{{ week }}" data-activity-card data-tags="{% if activity.tags %}{{ activity.tags | join: '|' | downcase | escape }}{% endif %}" data-search="{% if activity %}{{ activity.title | downcase | escape }} {{ activity.summary | downcase | escape }}{% else %}week {{ week }} source pdf missing{% endif %}">
+        <p class="activity-card-meta">
+          <span>WEEK {{ week }}</span>
+          {% if activity %}<span>MAKE {{ activity.make_number }}</span>{% elsif week == 2 %}<span>NO MAKE</span>{% else %}<span>SOURCE NEEDED</span>{% endif %}
+        </p>
+        {% if activity %}
+          <h2><a href="{{ site.baseurl }}{{ activity.url }}">{{ activity.title }}</a></h2>
+          <p>{{ activity.summary }}</p>
+          <ul class="activity-card-tags" aria-label="Activity tags">
+            {% for tag in activity.tags %}<li>{{ tag }}</li>{% endfor %}
+          </ul>
+          <a class="card-btn" href="{{ site.baseurl }}{{ activity.url }}">Open activity</a>
+        {% elsif week == 2 %}
+          <h2>No Make this week</h2>
+          <p>Week 2 was spent building this website.</p>
+        {% else %}
+          <!-- TODO: Add this activity only after its matching source PDF is available. -->
+          {% assign make_number = week | minus: 1 %}
+          <h2>Week {{ week }} // Make {{ make_number }}</h2>
+          <p>No matching activity PDF was found in <code>assets/pdfs/</code>. This activity has not been filled in.</p>
+          {% if week == 8 %}
+            <!-- TODO: Add a verified Kumu URL and meaningful embed text alternative when available. -->
+            <div class="kumu-placeholder" role="note" aria-labelledby="kumu-placeholder-title">
+              <h3 id="kumu-placeholder-title">Kumu network embed not available</h3>
+              <p>No Kumu URL was found in the repository or supplied PDFs. The network visualization cannot be embedded yet.</p>
+              <p><strong>Text alternative:</strong> The intended network graph is unavailable for inspection until its source link is added.</p>
+            </div>
+          {% endif %}
+        {% endif %}
+      </article>
+    {% endfor %}
+  </div>
+</section>

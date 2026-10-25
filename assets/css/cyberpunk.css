@@ -28,11 +28,11 @@
   --neon-green-dim: rgba(0, 255, 102, 0.2);
   --neon-green-glow: 0 0 12px rgba(0, 255, 102, 0.6);
   
-  --neon-purple: #9d4edd;
+  --neon-purple: #c58cff;
   
   --text-main: #e2e8f0;
-  --text-muted: #8492a6;
-  --text-dim: #4c566a;
+  --text-muted: #a4b1c6;
+  --text-dim: #97a6bb;
   --text-bright: #ffffff;
   
   --border-color: rgba(0, 240, 255, 0.3);
@@ -1184,6 +1184,363 @@ body.no-scanlines .scanlines {
   
   .modal-body {
     padding: 1.5rem;
+  }
+}
+
+:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 11000;
+  padding: 0.65rem 1rem;
+  transform: translateY(-160%);
+  background: var(--bg-primary);
+  border: 2px solid var(--neon-cyan);
+  color: var(--text-bright);
+  font-family: var(--font-mono);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.activity-page-nav,
+.activity-timeline,
+.activity-controls,
+.activity-result-count {
+  margin-bottom: 1.5rem;
+}
+
+.activity-page-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border-color);
+  background: rgba(12, 16, 26, 0.85);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.activity-page-nav a,
+.activity-timeline a {
+  color: var(--neon-cyan);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.activity-index {
+  position: relative;
+  z-index: 1;
+}
+
+.activity-kicker,
+.activity-card-meta,
+.timeline-legend {
+  font-family: var(--font-mono);
+  color: var(--neon-cyan);
+  text-transform: uppercase;
+}
+
+.activity-index > h1 {
+  margin: 0.25rem 0;
+  color: var(--text-bright);
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+.activity-intro {
+  margin-bottom: 1.5rem;
+  color: var(--text-muted);
+}
+
+.activity-timeline {
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  background: rgba(12, 16, 26, 0.85);
+}
+
+.activity-timeline ol {
+  display: grid;
+  grid-template-columns: repeat(13, minmax(0, 1fr));
+  gap: 0.3rem;
+  list-style: none;
+}
+
+.activity-timeline li {
+  min-width: 0;
+  text-align: center;
+}
+
+.activity-timeline li a,
+.activity-timeline li span {
+  display: block;
+  padding: 0.35rem 0.1rem;
+  border: 1px solid var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-decoration: none;
+}
+
+.activity-timeline .timeline-complete a {
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+}
+
+.activity-timeline .timeline-none span {
+  color: var(--text-muted);
+}
+
+.activity-timeline .timeline-missing a {
+  border-style: dashed;
+  border-color: var(--neon-yellow);
+  color: var(--neon-yellow);
+}
+
+.timeline-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: none;
+}
+
+.activity-controls {
+  display: grid;
+  gap: 0.65rem;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  background: rgba(12, 16, 26, 0.85);
+}
+
+.activity-search-label {
+  color: var(--text-bright);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.activity-tag-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.activity-card-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.activity-card {
+  min-width: 0;
+  padding: 1.25rem;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+}
+
+.activity-card[hidden] {
+  display: none;
+}
+
+.activity-card-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.activity-card h2 {
+  margin: 0.65rem 0;
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+  line-height: 1.25;
+}
+
+.activity-card h2 a {
+  color: var(--text-bright);
+  text-decoration-color: var(--neon-cyan);
+  text-underline-offset: 0.2em;
+}
+
+.activity-card > p:not(.activity-card-meta) {
+  color: var(--text-muted);
+}
+
+.activity-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.8rem 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.activity-card-tags li {
+  padding: 0.15rem 0.45rem;
+  border: 1px solid var(--neon-magenta);
+  color: var(--text-bright);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.activity-card-placeholder {
+  border-style: dashed;
+  border-color: rgba(252, 238, 10, 0.7);
+}
+
+.kumu-placeholder {
+  margin-top: 1rem;
+  padding: 0.9rem;
+  border-left: 3px solid var(--neon-magenta);
+  background: rgba(255, 0, 85, 0.08);
+}
+
+.kumu-placeholder h3 {
+  margin-bottom: 0.4rem;
+  color: var(--text-bright);
+  font-family: var(--font-heading);
+}
+
+.kumu-placeholder p {
+  margin-bottom: 0.5rem;
+}
+
+.markdown-body details {
+  margin: 1rem 0;
+  border: 1px solid var(--border-color);
+  background: rgba(12, 16, 26, 0.65);
+}
+
+.markdown-body details > summary {
+  padding: 0.8rem 1rem;
+  color: var(--neon-cyan);
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.markdown-body details[open] > summary {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.markdown-body details > :not(summary) {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.activity-figure {
+  margin: 1rem 0;
+}
+
+.lightbox-trigger {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.lightbox-trigger img {
+  display: block;
+  max-width: 100%;
+  max-height: 70vh;
+  margin: 0;
+  object-fit: contain;
+}
+
+.activity-figure figcaption {
+  margin-top: 0.4rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.image-lightbox {
+  width: min(96vw, 1100px);
+  max-width: 96vw;
+  max-height: 94vh;
+  margin: auto;
+  padding: 1rem;
+  border: 2px solid var(--neon-cyan);
+  background: var(--bg-secondary);
+  color: var(--text-main);
+}
+
+.image-lightbox::backdrop {
+  background: rgba(5, 7, 12, 0.92);
+}
+
+.lightbox-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.lightbox-toolbar h2 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+}
+
+.image-lightbox > img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(94vh - 5rem);
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+@media (min-width: 680px) {
+  .activity-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1020px) {
+  .activity-card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .activity-timeline ol {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+
+  .header-inner {
+    gap: 0.5rem;
+    padding: 0 0.75rem;
+  }
+
+  .brand-badge,
+  .hud-pill,
+  .hud-btn .btn-label {
+    display: none;
+  }
+
+  .hud-controls {
+    gap: 0.3rem;
+  }
+
+  .hud-btn {
+    padding: 0.4rem;
+  }
+
+  .brand-glitch {
+    font-size: 1.15rem;
   }
 }
 

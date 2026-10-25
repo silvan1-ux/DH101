@@ -10,8 +10,9 @@
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/cyberpunk.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <!-- Ambient Cyber Particle Canvas -->
-  <canvas id="cyber-canvas"></canvas>
+  <canvas id="cyber-canvas" aria-hidden="true"></canvas>
 
   <!-- CRT Scanlines Overlay -->
   <div class="scanlines"></div>
@@ -24,9 +25,9 @@
         <span class="brand-badge">CYBERDECK v2.6</span>
       </a>
 
-      <button class="mobile-toggle" aria-label="Toggle Navigation">☰</button>
+      <button class="mobile-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-navigation">☰</button>
 
-      <nav class="cyber-nav">
+      <nav class="cyber-nav" id="site-navigation" aria-label="Primary navigation">
         <a href="{{ site.baseurl }}/" class="nav-link">DECK</a>
         <a href="{{ site.baseurl }}/#protocols" class="nav-link">PROTOCOLS</a>
         <a href="{{ site.baseurl }}/#makes" class="nav-link">MAKES</a>
@@ -47,11 +48,29 @@
   </header>
 
   <!-- Main Container -->
-  <main class="cyber-container">
+  <main class="cyber-container" id="main-content">
     <div class="breadcrumbs">
       <a href="{{ site.baseurl }}/">TERMINAL_ROOT</a> // 
       <span style="color: var(--neon-cyan);">{{ page.path | default: page.title }}</span>
     </div>
+
+    {% if page.make_number %}
+      {% assign activity_pages = site.pages | where_exp: "item", "item.make_number" | sort: "week" %}
+      {% assign previous_activity = "" %}
+      {% assign next_activity = "" %}
+      {% for activity in activity_pages %}
+        {% if activity.week < page.week %}
+          {% assign previous_activity = activity %}
+        {% elsif activity.week > page.week and next_activity == "" %}
+          {% assign next_activity = activity %}
+        {% endif %}
+      {% endfor %}
+      <nav class="activity-page-nav" aria-label="Activity navigation">
+        <span>ACTIVITY {{ page.week }} // {{ activity_pages.size }} PUBLISHED</span>
+        {% if previous_activity != "" %}<a href="{{ site.baseurl }}{{ previous_activity.url }}">&larr; Previous: {{ previous_activity.title }}</a>{% endif %}
+        {% if next_activity != "" %}<a href="{{ site.baseurl }}{{ next_activity.url }}">Next: {{ next_activity.title }} &rarr;</a>{% endif %}
+      </nav>
+    {% endif %}
 
     <article class="jekyll-content-frame">
       <div class="hero-corner tl"></div>
@@ -69,6 +88,14 @@
       </div>
     </article>
   </main>
+
+  <dialog class="image-lightbox" id="image-lightbox" aria-labelledby="image-lightbox-title">
+    <div class="lightbox-toolbar">
+      <h2 id="image-lightbox-title">Enlarged activity image</h2>
+      <button type="button" class="hud-btn lightbox-close" aria-label="Close enlarged image">CLOSE</button>
+    </div>
+    <img src="" alt="The selected activity image appears here.">
+  </dialog>
 
   <!-- Interactive Holographic Terminal Reader Modal -->
   <div class="cyber-modal" id="cyber-modal">

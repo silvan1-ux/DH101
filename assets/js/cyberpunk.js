@@ -273,7 +273,13 @@
       cyberAudio.playClick();
 
       modalTitle.textContent = title || 'DOCUMENT TERMINAL';
-      modalPath.textContent = `// ${filePath}`;
+      const stylesheet = document.querySelector('link[rel="stylesheet"][href*="/assets/css/cyberpunk.css"]');
+      const basePath = stylesheet ? new URL(stylesheet.href).pathname.replace(/\/assets\/css\/cyberpunk\.css$/, '') : '';
+      const pagePath = filePath;
+      const isRenderedPage = pagePath.endsWith('.html');
+      const pageUrl = `${basePath}/${pagePath}`.replace(/\/+/g, '/');
+
+      modalPath.textContent = `// ${pagePath}`;
       modalBody.innerHTML = `
         <div style="font-family: var(--font-mono); color: var(--neon-cyan); padding: 2rem; text-align: center;">
           <div class="pulse-dot" style="display:inline-block; margin-right: 0.5rem;"></div>
@@ -284,16 +290,23 @@
       document.body.style.overflow = 'hidden';
 
       if (rawLink) {
-        rawLink.href = filePath;
+        rawLink.href = pageUrl;
       }
 
       try {
-        const response = await fetch(filePath);
-        if (!response.ok) {
-          throw new Error(`HTTP error ${response.status}`);
+        const response = await fetch(pageUrl);
+        if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+        if (isRenderedPage) {
+          const pageDocument = new DOMParser().parseFromString(await response.text(), 'text/html');
+          const pageContent = pageDocument.querySelector('.markdown-body');
+          if (!pageContent) throw new Error('Rendered page content was not found');
+          currentMarkdown = pageContent.innerText;
+          modalBody.innerHTML = `<div class="markdown-body">${pageContent.innerHTML}</div>`;
+        } else {
+          currentMarkdown = await response.text();
+          modalBody.innerHTML = `<div class="markdown-body">${parseMarkdown(currentMarkdown)}</div>`;
         }
-        currentMarkdown = await response.text();
-        modalBody.innerHTML = `<div class="markdown-body">${parseMarkdown(currentMarkdown)}</div>`;
+        if (rawLink) rawLink.href = pageUrl;
         cyberAudio.playChirp(800, 0.05);
       } catch (err) {
         modalBody.innerHTML = `
@@ -382,6 +395,79 @@
     }
   }
 
+  function initActivityIndex() {
+    const searchInput = document.getElementById('activity-search');
+    const cards = Array.from(document.querySelectorAll('[data-activity-card]'));
+    const filterButtons = document.querySelectorAll('[data-activity-tag]');
+    const resultCount = document.getElementById('activity-result-count');
+    if (!cards.length) return;
+
+    let activeTag = 'all';
+
+    function applyFilters() {
+      const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+      let visibleCount = 0;
+      cards.forEach((card) => {
+        const tags = (card.dataset.tags || '').toLowerCase().split('|');
+        const text = `${card.dataset.search || ''} ${card.textContent}`.toLowerCase();
+        const matchesTag = activeTag === 'all' || tags.includes(activeTag);
+        const matchesQuery = !query || text.includes(query);
+        card.hidden = !(matchesTag && matchesQuery);
+        if (!card.hidden) visibleCount += 1;
+      });
+      if (resultCount) resultCount.textContent = `${visibleCount} of ${cards.length} course weeks shown.`;
+    }
+
+    filterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        activeTag = button.dataset.activityTag.toLowerCase();
+        filterButtons.forEach((filterButton) => {
+          const selected = filterButton === button;
+          filterButton.classList.toggle('active', selected);
+          filterButton.setAttribute('aria-pressed', String(selected));
+        });
+        applyFilters();
+      });
+    });
+
+    if (searchInput) searchInput.addEventListener('input', applyFilters);
+    applyFilters();
+  }
+
+  function initImageLightbox() {
+    const dialog = document.getElementById('image-lightbox');
+    if (!dialog || typeof dialog.showModal !== 'function') return;
+
+    const image = dialog.querySelector('img');
+    const closeButton = dialog.querySelector('.lightbox-close');
+    let returnFocus = null;
+
+    document.addEventListener('click', (event) => {
+      const trigger = event.target.closest('.lightbox-trigger');
+      if (!trigger) return;
+      returnFocus = trigger;
+      image.src = trigger.dataset.lightboxSrc;
+      image.alt = trigger.dataset.lightboxAlt || '';
+      dialog.showModal();
+      closeButton.focus();
+    });
+
+    closeButton.addEventListener('click', () => dialog.close());
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && dialog.open) {
+        event.preventDefault();
+        dialog.close();
+      }
+    });
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+    dialog.addEventListener('close', () => {
+      image.removeAttribute('src');
+      if (returnFocus) returnFocus.focus();
+    });
+  }
+
   // --- CRT Scanlines & Sound Controls ---
   function initControls() {
     // Scanlines Toggle
@@ -424,7 +510,14 @@
       mobileBtn.addEventListener('click', () => {
         cyberAudio.init();
         cyberAudio.playClick();
-        nav.classList.toggle('mobile-active');
+        const isOpen = nav.classList.toggle('mobile-active');
+        mobileBtn.setAttribute('aria-expanded', String(isOpen));
+      });
+      nav.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          nav.classList.remove('mobile-active');
+          mobileBtn.setAttribute('aria-expanded', 'false');
+        });
       });
     }
 
@@ -440,6 +533,8 @@
     initClock();
     initModalReader();
     initFiltering();
+    initActivityIndex();
+    initImageLightbox();
     initControls();
   });
 })();
