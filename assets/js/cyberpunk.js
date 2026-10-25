@@ -185,6 +185,14 @@
   function parseMarkdown(md) {
     if (!md) return '';
     
+    // Preserve raw embedded media blocks such as PDF objects so they render correctly
+    const preservedBlocks = [];
+    md = md.replace(/<object\b[^>]*>[\s\S]*?<\/object>/gi, (match) => {
+      const placeholder = `__PRESERVED_BLOCK_${preservedBlocks.length}__`;
+      preservedBlocks.push(match);
+      return placeholder;
+    });
+
     // Strip YAML Front Matter if present
     md = md.replace(/^---[\s\S]*?---\s*/, '');
 
@@ -193,6 +201,9 @@
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;');
+
+    // Restore native embedded media blocks before other parser rules
+    html = html.replace(/__PRESERVED_BLOCK_(\d+)__/g, (_, index) => preservedBlocks[Number(index)]);
 
     // Code blocks with syntax framing
     html = html.replace(/```([a-z]*)\n([\s\S]*?)```/g, function (match, lang, code) {
