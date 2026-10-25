@@ -1683,6 +1683,50 @@ body.no-scanlines .scanlines {
   color: var(--text-main);
 }
 
+.map-embed {
+  width: 100%;
+  margin: 1rem 0;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  background: #ffffff;
+}
+
+.map-embed iframe {
+  display: block;
+  width: 100%;
+  height: min(72vh, 44rem);
+  min-height: 30rem;
+  border: 0;
+  background: #ffffff;
+}
+
+.map-text-alternative {
+  margin: 1rem 0;
+  padding: 1rem;
+  border-left: 3px solid var(--neon-green);
+  background: rgba(0, 255, 102, 0.06);
+}
+
+.map-text-alternative h3 {
+  margin-bottom: 0.65rem;
+  color: var(--neon-green);
+  font-family: var(--font-heading);
+}
+
+.map-text-alternative ul {
+  margin: 0 0 0.8rem;
+  padding-left: 1.5rem;
+}
+
+.map-text-alternative li {
+  margin-bottom: 0.5rem;
+}
+
+.map-text-alternative p {
+  margin-bottom: 0;
+  color: var(--text-muted);
+}
+
 .markdown-body details {
   margin: 1rem 0;
   border: 1px solid var(--border-color);
