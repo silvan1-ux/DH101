@@ -14,10 +14,10 @@ summary: "An interactive map traces the corporate, energy, labor, and extraction
 <p>This interactive Google My Maps project maps the physical, environmental, and labor networks that power artificial intelligence. Use the map controls to zoom, select locations, and toggle its three layers.</p>
 
 <div class="map-embed" role="group" aria-label="Interactive map of AI corporate headquarters, data centers and energy sites, and labor and extraction locations">
-	<iframe src="https://www.google.com/maps/d/embed?mid=1LM3KV9Oc70RZp_HCa2_4Qgg9WaFMG24" title="The Hidden Infrastructure of AI: interactive Google map with Corporate Headquarters, Data Centers and Energy, and Labor and Extraction layers" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+	<iframe src="https://www.google.com/maps/d/embed?mid=1LM3KV9Oc70RZp_HCa2_4Qgg9WaFMG24&amp;hl=en" title="The Hidden Infrastructure of AI: interactive Google map with Corporate Headquarters, Data Centers and Energy, and Labor and Extraction layers" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
 
-<p><a class="card-btn" href="https://www.google.com/maps/d/viewer?mid=1LM3KV9Oc70RZp_HCa2_4Qgg9WaFMG24" target="_blank" rel="noopener noreferrer">Open the interactive map in Google My Maps</a></p>
+<p><a class="card-btn" href="https://www.google.com/maps/d/viewer?mid=1LM3KV9Oc70RZp_HCa2_4Qgg9WaFMG24&amp;hl=en" target="_blank" rel="noopener noreferrer">Open the interactive map in Google My Maps</a></p>
 
 <div class="map-text-alternative" role="note" aria-labelledby="map-text-alternative-title">
 	<h3 id="map-text-alternative-title">Text alternative: map layers and locations</h3>
