@@ -1727,6 +1727,24 @@ body.no-scanlines .scanlines {
   color: var(--text-muted);
 }
 
+.kumu-embed-note {
+  margin: 1rem 0;
+  padding: 0.9rem 1rem;
+  border-left: 3px solid var(--neon-yellow);
+  background: rgba(252, 238, 10, 0.06);
+}
+
+.kumu-embed-note h3 {
+  margin: 0 0 0.4rem;
+  color: var(--text-bright);
+  font-family: var(--font-heading);
+}
+
+.kumu-embed-note p {
+  margin: 0;
+  color: var(--text-main);
+}
+
 .markdown-body details {
   margin: 1rem 0;
   border: 1px solid var(--border-color);
