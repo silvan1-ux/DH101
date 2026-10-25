@@ -15,8 +15,11 @@ summary: "I compare Voyant's word-frequency and trend visualizations with GPT's 
 
 <div class="text-explorer" data-text-explorer>
 	<div class="text-explorer-inputs">
-		<label for="explorer-file">Load a plain-text file</label>
-		<input id="explorer-file" type="file" accept=".txt,text/plain" data-explorer-file>
+		<label for="explorer-file">Choose a document to analyze</label>
+		<div class="text-explorer-file-picker">
+			<input id="explorer-file" type="file" accept=".txt,.md,.markdown,.csv,.tsv,.html,.htm,.xml,.json,.yaml,.yml,.rtf,.pdf,.docx,text/plain,text/csv,text/html,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" data-explorer-file aria-describedby="explorer-file-help">
+		</div>
+		<p id="explorer-file-help" class="text-explorer-help">Supported: TXT, Markdown, CSV, HTML, XML, JSON, RTF, PDF, and DOCX. Files are read locally in your browser.</p>
 		<label for="explorer-text">Or paste text to analyze</label>
 		<textarea id="explorer-text" rows="8" data-explorer-text placeholder="Paste text here. For copyright reasons, only use text you have permission to analyze."></textarea>
 		<div class="text-explorer-actions">

@@ -445,10 +445,88 @@
     const status = explorer.querySelector('[data-explorer-status]');
     const results = explorer.querySelector('[data-explorer-results]');
     const tabs = Array.from(explorer.querySelectorAll('[data-explorer-tab]'));
-    const stopwords = new Set('a an and are as at be been but by can could did do does for from had has have he her hers him his how i if in into is it its me my no not of on or our out she so than that the their them then there these they this those to too up us was we were what when where which who will with would you your'.split(' '));
+      const stopwords = new Set('a an and are as at be been but by can could did do does for from had has have he her hers him his how i if in into is it its me my no not of on or our out she so than that the their them then there these they this those to too up us was we were what when where which who will with would you your'.split(' '));
+      const cloud = explorer.querySelector('[data-explorer-cloud]');
     let tokens = [];
     let sourceText = '';
     let selectedTerm = '';
+    let currentTerms = [];
+
+    function loadScript(source) {
+      return new Promise((resolve, reject) => {
+        const existingScript = document.querySelector(`script[data-explorer-library="${source}"]`);
+        if (existingScript) {
+          if (existingScript.dataset.loaded === 'true') resolve();
+          else {
+            existingScript.addEventListener('load', resolve, { once: true });
+            existingScript.addEventListener('error', reject, { once: true });
+          }
+          return;
+        }
+        const script = document.createElement('script');
+        script.src = source;
+        script.async = true;
+        script.dataset.explorerLibrary = source;
+        script.addEventListener('load', () => {
+          script.dataset.loaded = 'true';
+          resolve();
+        }, { once: true });
+        script.addEventListener('error', reject, { once: true });
+        document.head.append(script);
+      });
+    }
+
+    async function readPdf(file) {
+      status.textContent = 'Loading the PDF reader and extracting document text…';
+      const pdfjs = await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs');
+      pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs';
+      const pdfDocument = await pdfjs.getDocument({ data: await file.arrayBuffer() }).promise;
+      const pageText = [];
+      for (let pageNumber = 1; pageNumber <= pdfDocument.numPages; pageNumber += 1) {
+        const page = await pdfDocument.getPage(pageNumber);
+        const content = await page.getTextContent();
+        pageText.push(content.items.map((item) => item.str).join(' '));
+      }
+      return pageText.join('\n\n');
+    }
+
+    async function readDocx(file) {
+      status.textContent = 'Loading the Word reader and extracting document text…';
+      await loadScript('https://unpkg.com/mammoth@1.9.0/mammoth.browser.min.js');
+      if (!window.mammoth) throw new Error('The DOCX reader could not load. Check your internet connection and try again.');
+      const result = await window.mammoth.extractRawText({ arrayBuffer: await file.arrayBuffer() });
+      return result.value;
+    }
+
+    function readRtf(rtf) {
+      return rtf
+        .replace(/\\'[0-9a-f]{2}/gi, ' ')
+        .replace(/\\(?:par|line|row|page)\b ?/gi, '\n')
+        .replace(/\\u(-?\d+)\??/g, (_, code) => String.fromCharCode(Number(code) < 0 ? Number(code) + 65536 : Number(code)))
+        .replace(/\\[a-z]+-?\d* ?/gi, '')
+        .replace(/\\[{}\\]/g, '')
+        .replace(/[{}]/g, '')
+        .replace(/\n{3,}/g, '\n\n')
+        .trim();
+    }
+
+    async function readDocument(file) {
+      if (file.size > 50 * 1024 * 1024) throw new Error('This file exceeds the 50 MB limit. Choose a smaller document.');
+      const extension = file.name.split('.').pop().toLowerCase();
+      if (extension === 'pdf' || file.type === 'application/pdf') return readPdf(file);
+      if (extension === 'docx') return readDocx(file);
+      if (extension === 'rtf') return readRtf(await file.text());
+      const textFormats = ['txt', 'md', 'markdown', 'csv', 'tsv', 'html', 'htm', 'xml', 'json', 'yaml', 'yml'];
+      if (textFormats.includes(extension) || file.type.startsWith('text/')) {
+        const text = await file.text();
+        if (['html', 'htm', 'xml'].includes(extension)) {
+          const parsed = new DOMParser().parseFromString(text, 'text/html');
+          return parsed.body.textContent || '';
+        }
+        return text;
+      }
+      throw new Error('Unsupported document. Choose TXT, Markdown, CSV, HTML, XML, JSON, RTF, PDF, or DOCX.');
+    }
 
     function createElement(tagName, className, text) {
       const element = document.createElement(tagName);
@@ -463,6 +541,7 @@
         tab.setAttribute('aria-selected', String(active));
         tab.tabIndex = active ? 0 : -1;
         explorer.querySelector(`[data-explorer-panel="${tab.dataset.explorerTab}"]`).hidden = !active;
+        if (active && tab.dataset.explorerTab === 'cloud' && currentTerms.length) renderCloud(currentTerms);
         if (active && moveFocus) tab.focus();
       });
     }
@@ -494,6 +573,7 @@
       const counts = new Map();
       filteredTokens.forEach((token) => counts.set(token.normalized, (counts.get(token.normalized) || 0) + 1));
       const terms = Array.from(counts, ([term, count]) => ({ term, count })).sort((a, b) => b.count - a.count || a.term.localeCompare(b.term)).slice(0, 50);
+      currentTerms = terms;
       selectedTerm = terms[0]?.term || '';
       results.hidden = false;
       status.textContent = `Analyzed locally: ${tokens.length} words, ${counts.size} distinct terms.`;
@@ -512,16 +592,62 @@
     function renderCloud(terms) {
       const cloud = explorer.querySelector('[data-explorer-cloud]');
       cloud.replaceChildren();
-      const highest = Math.max(1, ...terms.map((item) => item.count));
-      terms.slice(0, 35).forEach(({ term, count }) => {
+      const cloudTerms = terms.slice(0, 40);
+      if (!cloudTerms.length) {
+        cloud.textContent = 'No terms remain with the current common-word setting.';
+        return;
+      }
+      const bounds = cloud.getBoundingClientRect();
+      const cloudWidth = bounds.width;
+      const cloudHeight = bounds.height;
+      if (!cloudWidth || !cloudHeight) return;
+      const measureCanvas = document.createElement('canvas');
+      const context = measureCanvas.getContext('2d');
+      const highest = Math.max(1, ...cloudTerms.map((item) => item.count));
+      const lowest = Math.min(...cloudTerms.map((item) => item.count));
+      const placed = [];
+      const colors = ['#165e69', '#1d7180', '#285f75', '#327b82', '#406b7c', '#1b6260', '#426d85'];
+
+      cloudTerms.forEach(({ term, count }, termIndex) => {
+        const ratio = highest === lowest ? 1 : (count - lowest) / (highest - lowest);
+        let fontSize = 14 + Math.sqrt(ratio) * Math.min(34, cloudWidth / 14);
+        context.font = `700 ${fontSize}px Rajdhani, sans-serif`;
+        let wordWidth = context.measureText(term).width + 8;
+        if (wordWidth > cloudWidth * 0.88) {
+          fontSize *= (cloudWidth * 0.88) / wordWidth;
+          context.font = `700 ${fontSize}px Rajdhani, sans-serif`;
+          wordWidth = context.measureText(term).width + 8;
+        }
+        const wordHeight = fontSize * 1.25;
+        const centerX = cloudWidth / 2;
+        const centerY = cloudHeight / 2;
+        const seedOffset = (termIndex * 41) % 360;
+        let placement = null;
+
+        for (let attempt = 0; attempt < 2200 && !placement; attempt += 1) {
+          const angle = attempt * 2.399963 + seedOffset;
+          const radius = 2.7 * Math.sqrt(attempt);
+          const left = centerX + Math.cos(angle) * radius - wordWidth / 2;
+          const top = centerY + Math.sin(angle) * radius * 0.62 - wordHeight / 2;
+          const box = { left: left - 2, top: top - 1, right: left + wordWidth + 2, bottom: top + wordHeight + 1 };
+          if (box.left < 0 || box.top < 0 || box.right > cloudWidth || box.bottom > cloudHeight) continue;
+          if (placed.some((other) => box.left < other.right && box.right > other.left && box.top < other.bottom && box.bottom > other.top)) continue;
+          placement = { left, top, box };
+        }
+
+        if (!placement) return;
         const button = createElement('button', 'text-explorer-cloud-term', term);
         button.type = 'button';
-        button.style.setProperty('--term-scale', String(1 + (count / highest) * 1.2));
+        button.style.left = `${placement.left}px`;
+        button.style.top = `${placement.top}px`;
+        button.style.fontSize = `${fontSize}px`;
+        button.style.color = colors[termIndex % colors.length];
         button.setAttribute('aria-label', `${term}, ${count} occurrences. Select for trends and contexts.`);
         button.addEventListener('click', () => selectTerm(term));
         cloud.append(button);
+        placed.push(placement.box);
       });
-      if (!terms.length) cloud.textContent = 'No terms remain with the current common-word setting.';
+      if (!cloud.children.length) cloud.textContent = 'Not enough room for these terms. Widen this panel or analyze a shorter text.';
     }
 
     function renderTerms(terms) {
@@ -595,18 +721,29 @@
     fileInput.addEventListener('change', async () => {
       const file = fileInput.files && fileInput.files[0];
       if (!file) return;
-      if (!file.type.startsWith('text/') && !file.name.toLowerCase().endsWith('.txt')) {
-        status.textContent = 'Please choose a plain-text .txt file.';
-        fileInput.value = '';
-        return;
+      status.textContent = `Reading ${file.name} locally…`;
+      analyzeButton.disabled = true;
+      try {
+        textInput.value = await readDocument(file);
+        if (!textInput.value.trim()) throw new Error('No readable text was found in this document.');
+        status.textContent = `${file.name} loaded. Choose Analyze text to explore it.`;
+      } catch (error) {
+        status.textContent = error.message || 'Could not read this document.';
+      } finally {
+        analyzeButton.disabled = false;
       }
-      textInput.value = await file.text();
-      status.textContent = `${file.name} loaded. Choose Analyze text to explore it.`;
     });
 
     analyzeButton.addEventListener('click', analyze);
     excludeStopwords.addEventListener('change', () => {
       if (!results.hidden) analyze();
+    });
+    const cloudResizeObserver = new ResizeObserver(() => {
+      if (!results.hidden && !explorer.querySelector('[data-explorer-panel="cloud"]').hidden) renderCloud(currentTerms);
+    });
+    cloudResizeObserver.observe(cloud);
+    window.addEventListener('resize', () => {
+      if (!results.hidden && !explorer.querySelector('[data-explorer-panel="cloud"]').hidden) renderCloud(currentTerms);
     });
     tabs.forEach((tab, index) => {
       tab.addEventListener('click', () => setActiveTab(tab.dataset.explorerTab));
