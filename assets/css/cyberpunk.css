@@ -1415,6 +1415,38 @@ body.no-scanlines .scanlines {
   margin-bottom: 0.5rem;
 }
 
+.voyant-embed {
+  width: 100%;
+  min-height: 42rem;
+  margin: 1rem 0;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  background: #ffffff;
+}
+
+.voyant-embed iframe {
+  display: block;
+  width: 100%;
+  height: min(82vh, 68rem);
+  min-height: 42rem;
+  border: 0;
+  background: #ffffff;
+}
+
+.voyant-fallback {
+  padding: 0.75rem 1rem;
+  border-left: 3px solid var(--neon-yellow);
+  background: rgba(252, 238, 10, 0.06);
+  color: var(--text-main);
+}
+
+@media (max-width: 560px) {
+  .voyant-embed,
+  .voyant-embed iframe {
+    min-height: 36rem;
+  }
+}
+
 .markdown-body details {
   margin: 1rem 0;
   border: 1px solid var(--border-color);
