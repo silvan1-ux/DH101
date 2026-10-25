@@ -9,23 +9,66 @@ summary: "I compare Voyant's word-frequency and trend visualizations with GPT's 
 # Week 6: How Machines Read
 
 <details>
-<summary>Interactive artifact: Voyant Tools corpus</summary>
+<summary>Interactive text explorer</summary>
 
-<p>The embedded Voyant workspace uses the shared corpus from my project. Its panels include Cirrus, Terms, Links, Reader, Trends, document terms, summary, and contexts. Visitors can use the controls inside the embed to explore the corpus.</p>
+<p>This on-page text explorer runs in your browser. Paste text or load a plain-text file, then explore frequent words, their distribution across the text, and the passages around each occurrence. Your text is not uploaded to this website.</p>
 
-<p><a class="card-btn" href="https://voyant-tools.org/?corpus=efb16bd8d4d3f71b58715518e2159746" target="_blank" rel="noopener noreferrer">Open interactive Voyant corpus in a new tab</a></p>
+<div class="text-explorer" data-text-explorer>
+	<div class="text-explorer-inputs">
+		<label for="explorer-file">Load a plain-text file</label>
+		<input id="explorer-file" type="file" accept=".txt,text/plain" data-explorer-file>
+		<label for="explorer-text">Or paste text to analyze</label>
+		<textarea id="explorer-text" rows="8" data-explorer-text placeholder="Paste text here. For copyright reasons, only use text you have permission to analyze."></textarea>
+		<div class="text-explorer-actions">
+			<button type="button" class="card-btn" data-explorer-analyze>Analyze text</button>
+			<label class="text-explorer-option"><input type="checkbox" data-explorer-stopwords checked> Exclude common English words</label>
+		</div>
+		<p class="text-explorer-status" data-explorer-status aria-live="polite">Add text to begin. Text is analyzed locally in this browser.</p>
+	</div>
 
-<div class="voyant-embed" role="group" aria-label="Interactive Voyant Tools analysis of the I Have a Dream speech">
-	<iframe src="https://voyant-tools.org/?corpus=efb16bd8d4d3f71b58715518e2159746" title="Interactive Voyant Tools workspace for the I Have a Dream speech, including word cloud, reader, trends, summary, and contexts" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+	<div class="text-explorer-results" data-explorer-results hidden>
+		<div class="text-explorer-summary" data-explorer-summary aria-live="polite"></div>
+		<div class="text-explorer-tabs" role="tablist" aria-label="Text analysis views">
+			<button type="button" role="tab" id="explorer-tab-cloud" aria-controls="explorer-panel-cloud" aria-selected="true" data-explorer-tab="cloud">Cirrus</button>
+			<button type="button" role="tab" id="explorer-tab-terms" aria-controls="explorer-panel-terms" aria-selected="false" tabindex="-1" data-explorer-tab="terms">Terms</button>
+			<button type="button" role="tab" id="explorer-tab-trends" aria-controls="explorer-panel-trends" aria-selected="false" tabindex="-1" data-explorer-tab="trends">Trends</button>
+			<button type="button" role="tab" id="explorer-tab-contexts" aria-controls="explorer-panel-contexts" aria-selected="false" tabindex="-1" data-explorer-tab="contexts">Contexts</button>
+			<button type="button" role="tab" id="explorer-tab-reader" aria-controls="explorer-panel-reader" aria-selected="false" tabindex="-1" data-explorer-tab="reader">Reader</button>
+		</div>
+		<section id="explorer-panel-cloud" class="text-explorer-panel" role="tabpanel" aria-labelledby="explorer-tab-cloud" data-explorer-panel="cloud">
+			<h3>Cirrus // frequent terms</h3>
+			<p>Select a term to inspect its trend and contexts.</p>
+			<div class="text-explorer-cloud" data-explorer-cloud></div>
+		</section>
+		<section id="explorer-panel-terms" class="text-explorer-panel" role="tabpanel" aria-labelledby="explorer-tab-terms" data-explorer-panel="terms" hidden>
+			<h3>Terms // frequency</h3>
+			<ol class="text-explorer-term-list" data-explorer-terms></ol>
+		</section>
+		<section id="explorer-panel-trends" class="text-explorer-panel" role="tabpanel" aria-labelledby="explorer-tab-trends" data-explorer-panel="trends" hidden>
+			<h3>Trends // distribution by text segment</h3>
+			<p data-explorer-selected-term>Select a term in Cirrus or Terms.</p>
+			<ol class="text-explorer-trends" data-explorer-trends></ol>
+		</section>
+		<section id="explorer-panel-contexts" class="text-explorer-panel" role="tabpanel" aria-labelledby="explorer-tab-contexts" data-explorer-panel="contexts" hidden>
+			<h3>Contexts // surrounding passages</h3>
+			<p data-explorer-context-term>Select a term in Cirrus or Terms.</p>
+			<ol class="text-explorer-contexts" data-explorer-contexts></ol>
+		</section>
+		<section id="explorer-panel-reader" class="text-explorer-panel" role="tabpanel" aria-labelledby="explorer-tab-reader" data-explorer-panel="reader" hidden>
+			<h3>Reader // analyzed text</h3>
+			<pre class="text-explorer-reader" data-explorer-reader></pre>
+		</section>
+	</div>
 </div>
 
-<p class="voyant-fallback"><strong>If the interactive workspace does not load:</strong> open the Voyant corpus using the link above. The image below is a static record of the analysis and does not replace the interactive tools.</p>
+<p class="voyant-fallback"><strong>Voyant Tools corpus:</strong> The external Voyant service is currently unavailable, so its saved corpus cannot load right now. You can still use the local text explorer above. The original shared-corpus link remains available if Voyant comes back online.</p>
+<p><a class="card-btn" href="https://voyant-tools.org/?corpus=efb16bd8d4d3f71b58715518e2159746" target="_blank" rel="noopener noreferrer">Open original Voyant corpus</a></p>
 
 <figure class="activity-figure">
 	<button class="lightbox-trigger" type="button" data-lightbox-src="{{ site.baseurl }}/assets/img/how-machines-read-voyant-dashboard.png" data-lightbox-alt="Screenshot of the Voyant workspace showing a Cirrus word cloud, the speech in the Reader, a Trends graph for ring, negro, let, freedom, and dream, and summary and contexts panels.">
 		<img src="{{ site.baseurl }}/assets/img/how-machines-read-voyant-dashboard.png" alt="Screenshot of the Voyant workspace showing a Cirrus word cloud, the speech in the Reader, a Trends graph for ring, negro, let, freedom, and dream, and summary and contexts panels." loading="lazy">
 	</button>
-	<figcaption>Voyant workspace captured for the assignment. The live embed above provides the interactive panels when Voyant is available.</figcaption>
+	<figcaption>Screenshot of the Voyant workspace included with the assignment PDF. The local explorer above provides interactive text analysis without the external Voyant server.</figcaption>
 </figure>
 </details>
 

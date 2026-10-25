@@ -434,6 +434,195 @@
     applyFilters();
   }
 
+  function initTextExplorer() {
+    const explorer = document.querySelector('[data-text-explorer]');
+    if (!explorer) return;
+
+    const fileInput = explorer.querySelector('[data-explorer-file]');
+    const textInput = explorer.querySelector('[data-explorer-text]');
+    const analyzeButton = explorer.querySelector('[data-explorer-analyze]');
+    const excludeStopwords = explorer.querySelector('[data-explorer-stopwords]');
+    const status = explorer.querySelector('[data-explorer-status]');
+    const results = explorer.querySelector('[data-explorer-results]');
+    const tabs = Array.from(explorer.querySelectorAll('[data-explorer-tab]'));
+    const stopwords = new Set('a an and are as at be been but by can could did do does for from had has have he her hers him his how i if in into is it its me my no not of on or our out she so than that the their them then there these they this those to too up us was we were what when where which who will with would you your'.split(' '));
+    let tokens = [];
+    let sourceText = '';
+    let selectedTerm = '';
+
+    function createElement(tagName, className, text) {
+      const element = document.createElement(tagName);
+      if (className) element.className = className;
+      if (text !== undefined) element.textContent = text;
+      return element;
+    }
+
+    function setActiveTab(tabName, moveFocus = false) {
+      tabs.forEach((tab) => {
+        const active = tab.dataset.explorerTab === tabName;
+        tab.setAttribute('aria-selected', String(active));
+        tab.tabIndex = active ? 0 : -1;
+        explorer.querySelector(`[data-explorer-panel="${tab.dataset.explorerTab}"]`).hidden = !active;
+        if (active && moveFocus) tab.focus();
+      });
+    }
+
+    function analyze() {
+      sourceText = textInput.value.trim();
+      if (!sourceText) {
+        status.textContent = 'Paste text or choose a plain-text file before analyzing.';
+        results.hidden = true;
+        return;
+      }
+
+      const matches = Array.from(sourceText.matchAll(/[\p{L}\p{N}][\p{L}\p{M}\p{N}'’\u2010-\u2015-]*/gu));
+      tokens = matches.map((match, index) => ({
+        text: match[0],
+        normalized: match[0].toLocaleLowerCase(),
+        start: match.index,
+        end: match.index + match[0].length,
+        index
+      }));
+
+      if (!tokens.length) {
+        status.textContent = 'No words were found. Check the text and try again.';
+        results.hidden = true;
+        return;
+      }
+
+      const filteredTokens = tokens.filter((token) => !excludeStopwords.checked || !stopwords.has(token.normalized));
+      const counts = new Map();
+      filteredTokens.forEach((token) => counts.set(token.normalized, (counts.get(token.normalized) || 0) + 1));
+      const terms = Array.from(counts, ([term, count]) => ({ term, count })).sort((a, b) => b.count - a.count || a.term.localeCompare(b.term)).slice(0, 50);
+      selectedTerm = terms[0]?.term || '';
+      results.hidden = false;
+      status.textContent = `Analyzed locally: ${tokens.length} words, ${counts.size} distinct terms.`;
+      explorer.querySelector('[data-explorer-summary]').textContent = `${tokens.length} words // ${counts.size} terms // ${sourceText.length} characters`;
+      renderTerms(terms);
+      renderCloud(terms);
+      renderReader();
+      renderSelectedTerm();
+    }
+
+    function selectTerm(term) {
+      selectedTerm = term;
+      renderSelectedTerm();
+    }
+
+    function renderCloud(terms) {
+      const cloud = explorer.querySelector('[data-explorer-cloud]');
+      cloud.replaceChildren();
+      const highest = Math.max(1, ...terms.map((item) => item.count));
+      terms.slice(0, 35).forEach(({ term, count }) => {
+        const button = createElement('button', 'text-explorer-cloud-term', term);
+        button.type = 'button';
+        button.style.setProperty('--term-scale', String(1 + (count / highest) * 1.2));
+        button.setAttribute('aria-label', `${term}, ${count} occurrences. Select for trends and contexts.`);
+        button.addEventListener('click', () => selectTerm(term));
+        cloud.append(button);
+      });
+      if (!terms.length) cloud.textContent = 'No terms remain with the current common-word setting.';
+    }
+
+    function renderTerms(terms) {
+      const list = explorer.querySelector('[data-explorer-terms]');
+      list.replaceChildren();
+      const highest = Math.max(1, ...terms.map((item) => item.count));
+      terms.forEach(({ term, count }) => {
+        const item = createElement('li', 'text-explorer-term');
+        const button = createElement('button', 'text-explorer-term-select', term);
+        button.type = 'button';
+        button.setAttribute('aria-label', `${term}, ${count} occurrences. Select for trends and contexts.`);
+        button.addEventListener('click', () => selectTerm(term));
+        const countLabel = createElement('span', 'text-explorer-count', String(count));
+        countLabel.setAttribute('aria-label', `${count} occurrences`);
+        const track = createElement('span', 'text-explorer-bar-track');
+        track.setAttribute('aria-hidden', 'true');
+        const bar = createElement('span', 'text-explorer-bar');
+        bar.style.width = `${(count / highest) * 100}%`;
+        track.append(bar);
+        item.append(button, countLabel, track);
+        list.append(item);
+      });
+    }
+
+    function renderSelectedTerm() {
+      const selectedLabel = explorer.querySelector('[data-explorer-selected-term]');
+      const contextLabel = explorer.querySelector('[data-explorer-context-term]');
+      selectedLabel.textContent = selectedTerm ? `Distribution of “${selectedTerm}” across 10 equal word-count segments.` : 'No terms to display.';
+      contextLabel.textContent = selectedTerm ? `Passages containing “${selectedTerm}” (up to 20 results).` : 'No terms to display.';
+
+      const selectedTokens = tokens.filter((token) => token.normalized === selectedTerm);
+      const trends = explorer.querySelector('[data-explorer-trends]');
+      trends.replaceChildren();
+      const segmentCounts = Array(10).fill(0);
+      selectedTokens.forEach((token) => {
+        const segment = Math.min(9, Math.floor((token.index / tokens.length) * 10));
+        segmentCounts[segment] += 1;
+      });
+      const maxSegment = Math.max(1, ...segmentCounts);
+      segmentCounts.forEach((count, index) => {
+        const item = createElement('li', 'text-explorer-trend');
+        item.append(createElement('span', 'text-explorer-segment-label', `Part ${index + 1}`));
+        const track = createElement('span', 'text-explorer-bar-track');
+        track.setAttribute('aria-hidden', 'true');
+        const bar = createElement('span', 'text-explorer-bar');
+        bar.style.width = `${(count / maxSegment) * 100}%`;
+        track.append(bar);
+        item.append(track, createElement('span', 'text-explorer-count', String(count)));
+        item.setAttribute('aria-label', `Part ${index + 1}: ${count} occurrences`);
+        trends.append(item);
+      });
+
+      const contexts = explorer.querySelector('[data-explorer-contexts]');
+      contexts.replaceChildren();
+      selectedTokens.slice(0, 20).forEach((token) => {
+        const item = createElement('li', 'text-explorer-context');
+        const left = sourceText.slice(Math.max(0, token.start - 55), token.start);
+        const right = sourceText.slice(token.end, Math.min(sourceText.length, token.end + 55));
+        item.append(document.createTextNode(`${token.start > 55 ? '…' : ''}${left}`));
+        item.append(createElement('mark', '', sourceText.slice(token.start, token.end)));
+        item.append(document.createTextNode(`${right}${token.end + 55 < sourceText.length ? '…' : ''}`));
+        contexts.append(item);
+      });
+      if (!selectedTokens.length) contexts.textContent = 'No occurrences found.';
+    }
+
+    function renderReader() {
+      explorer.querySelector('[data-explorer-reader]').textContent = sourceText;
+    }
+
+    fileInput.addEventListener('change', async () => {
+      const file = fileInput.files && fileInput.files[0];
+      if (!file) return;
+      if (!file.type.startsWith('text/') && !file.name.toLowerCase().endsWith('.txt')) {
+        status.textContent = 'Please choose a plain-text .txt file.';
+        fileInput.value = '';
+        return;
+      }
+      textInput.value = await file.text();
+      status.textContent = `${file.name} loaded. Choose Analyze text to explore it.`;
+    });
+
+    analyzeButton.addEventListener('click', analyze);
+    excludeStopwords.addEventListener('change', () => {
+      if (!results.hidden) analyze();
+    });
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => setActiveTab(tab.dataset.explorerTab));
+      tab.addEventListener('keydown', (event) => {
+        let nextIndex = null;
+        if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+        if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+        if (event.key === 'Home') nextIndex = 0;
+        if (event.key === 'End') nextIndex = tabs.length - 1;
+        if (nextIndex === null) return;
+        event.preventDefault();
+        setActiveTab(tabs[nextIndex].dataset.explorerTab, true);
+      });
+    });
+  }
+
   function initImageLightbox() {
     const dialog = document.getElementById('image-lightbox');
     if (!dialog || typeof dialog.showModal !== 'function') return;
@@ -571,6 +760,7 @@
     initModalReader();
     initFiltering();
     initActivityIndex();
+    initTextExplorer();
     initImageLightbox();
     initAnimatedMedia();
     initControls();
