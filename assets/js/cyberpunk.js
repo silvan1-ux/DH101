@@ -440,19 +440,32 @@
 
     const image = dialog.querySelector('img');
     const closeButton = dialog.querySelector('.lightbox-close');
+    const motionButton = dialog.querySelector('.lightbox-motion-toggle');
     let returnFocus = null;
 
     document.addEventListener('click', (event) => {
       const trigger = event.target.closest('.lightbox-trigger');
       if (!trigger) return;
       returnFocus = trigger;
-      image.src = trigger.dataset.lightboxSrc;
+      const activityImage = trigger.querySelector('img');
+      image.src = activityImage ? activityImage.src : trigger.dataset.lightboxSrc;
       image.alt = trigger.dataset.lightboxAlt || '';
+      const isAnimated = Boolean(trigger.dataset.animationSrc && trigger.dataset.animationPoster);
+      motionButton.hidden = !isAnimated;
+      if (isAnimated) {
+        motionButton.dataset.animationSrc = trigger.dataset.animationSrc;
+        motionButton.dataset.animationPoster = trigger.dataset.animationPoster;
+        motionButton.dataset.animationTarget = image.id;
+        const isPlaying = image.src === new URL(trigger.dataset.animationSrc, document.baseURI).href;
+        motionButton.setAttribute('aria-pressed', String(isPlaying));
+        motionButton.textContent = isPlaying ? 'Pause animation' : 'Play animation';
+      }
       dialog.showModal();
       closeButton.focus();
     });
 
     closeButton.addEventListener('click', () => dialog.close());
+    motionButton.addEventListener('click', () => toggleAnimation(motionButton));
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape' && dialog.open) {
         event.preventDefault();
@@ -464,7 +477,31 @@
     });
     dialog.addEventListener('close', () => {
       image.removeAttribute('src');
+      motionButton.hidden = true;
       if (returnFocus) returnFocus.focus();
+    });
+  }
+
+  function toggleAnimation(button) {
+    const image = document.getElementById(button.dataset.animationTarget);
+    if (!image) return;
+    const isPlaying = button.getAttribute('aria-pressed') !== 'true';
+    image.src = isPlaying ? button.dataset.animationSrc : button.dataset.animationPoster;
+    button.setAttribute('aria-pressed', String(isPlaying));
+    button.textContent = isPlaying ? 'Pause animation' : 'Play animation';
+  }
+
+  function initAnimatedMedia() {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.querySelectorAll('.activity-motion-toggle').forEach((button) => {
+      if (button.classList.contains('lightbox-motion-toggle')) return;
+      const image = document.getElementById(button.dataset.animationTarget);
+      if (!image) return;
+      const isPlaying = !reducedMotion;
+      image.src = isPlaying ? button.dataset.animationSrc : button.dataset.animationPoster;
+      button.setAttribute('aria-pressed', String(isPlaying));
+      button.textContent = isPlaying ? 'Pause animation' : 'Play animation';
+      button.addEventListener('click', () => toggleAnimation(button));
     });
   }
 
@@ -535,6 +572,7 @@
     initFiltering();
     initActivityIndex();
     initImageLightbox();
+    initAnimatedMedia();
     initControls();
   });
 })();

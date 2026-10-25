@@ -4,7 +4,7 @@
 - This is Natan Silva's personal website for Introduction to Digital Humanities (DH 101) at Denison University.
 - The site is built with Jekyll and hosted on GitHub Pages.
 - Preserve the existing cyberpunk design, colors, fonts, and effects. Extend the current CSS and plain JavaScript rather than redesigning the site.
-- Weekly activity pages live in `makes/`; source activity PDFs live in `assets/pdfs/`; copied artwork belongs in `assets/img/`.
+- Weekly activity pages live in `makes/`; source activity PDFs and original activity documents live in `assets/pdfs/`; copied artwork belongs in `assets/img/`.
 
 ## Make-to-Week Mapping
 - Week 1 is Make 1 and is already written in `makes/week01.md`.
@@ -27,7 +27,7 @@
 - Use activity front matter for `title`, `week`, `make_number`, `tags`, and a short `summary`.
 - Keep the existing activity structure: artifact, process or commentary, reflection, and AI attribution as supported by the source.
 - Do not invent personal experiences, tools, prompts, results, or reflections. Improve grammar and flow without changing the author's meaning.
-- If a PDF is missing or its content is unreadable or does not match the expected week, leave that activity page untouched and list the gap for Natan. Do not guess.
+- If a source document is missing or its content is unreadable or does not match the expected week, leave that activity page untouched and list the gap for Natan. Do not guess.
 - Mark genuinely missing source details with a clear TODO comment and include them in the final report.
 - Give every copied image a meaningful filename and descriptive alternative text.
 

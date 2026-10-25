@@ -1467,6 +1467,32 @@ body.no-scanlines .scanlines {
   font-size: 0.85rem;
 }
 
+.activity-motion-toggle {
+  margin-top: 0.55rem;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--neon-cyan);
+  background: rgba(0, 240, 255, 0.06);
+  color: var(--text-bright);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.activity-motion-toggle:hover {
+  background: var(--neon-cyan);
+  color: #000;
+}
+
+.lightbox-motion-toggle {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lightbox-motion-toggle[hidden] {
+  display: none;
+}
+
 .image-lightbox {
   width: min(96vw, 1100px);
   max-width: 96vw;
